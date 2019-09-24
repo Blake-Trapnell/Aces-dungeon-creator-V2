@@ -5,23 +5,25 @@ import Login from "./Login/Login.js"
 import Register from "./Register/Register.js"
 
 export default class Authentication extends Component {
-    state= {
-        navigation: "Login"
-    }
-    navigationChange = (navigation) => {
+    constructor(){
+        super()
+       this.state= {
+            navigation: "Login"
+        }
+    this.navigationChange = (navigation) => {
         this.setState({
             navigation
         })
     }
-
+}
+    
     render() {
-        console.log(this.state.navigation)
 
         return (
             <div className="login-outer">
                 <Header />
-                {this.state.navigation=== "Login" ? <Login /> : null}
-                {this.state.navigation === "Reg" ? <Register/> : null}
+                {this.state.navigation=== "Login" ? <Login navigationChange = {this.navigationChange} /> : null}
+                {this.state.navigation === "Reg" ? <Register /> : null}
                 <div className="authentication-navigation">
                     <div style = {this.state.navigation === "Login" ? {display: "none"}: null} onClick={()=> {this.navigationChange("Login")}} className="authentication-navigation-buttons login-button">
                         <h6>Login</h6>

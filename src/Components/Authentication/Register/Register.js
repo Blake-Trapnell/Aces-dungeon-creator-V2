@@ -24,7 +24,7 @@ export default class Register extends Component {
                     <input onChange={(e)=>this.handleChange("username",e.target.value)} type="text" value={this.state.username} />
                     <h1 className="register-text">Password</h1>
                     <input onChange={(e)=>this.handleChange("password",e.target.value)} type="password" value={this.state.password} />
-                    <h1 style={password == passwordconfirm ? null : {color: "red"}} className="register-text">Confirm Password</h1>
+                    <h1 style={password === passwordconfirm ? null : {color: "red"}} className="register-text">Confirm Password</h1>
                     <input onChange={(e)=>this.handleChange("passwordconfirm",e.target.value)} type="password" value={this.state.passwordconfirm} />
                     <h1 className="register-text">Email</h1>
                     <input onChange={(e)=>this.handleChange("email",e.target.value)} type="text" value={this.state.email} />

@@ -63,13 +63,16 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    border-radius: 10px 10px 0 0;
+    border: 2px solid #333333
 }
 
 .login-character-sheet-selection {
     height: 10%;
     width: 90%;
     border: 2px solid #333333;
-    border-radius: 5px;
+    border-top: none;
+    border-radius: 0 0 5px 5px;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -80,4 +83,14 @@
     width: 20px;
     border-radius: 50%;
     background-color: #8C88A0
+}
+
+.login-clickhere {
+    text-decoration: underline;
+    position: relative;
+    left: 20px;
+}
+
+.login-clickhere:hover {
+    color: #3DE1FF;
 }

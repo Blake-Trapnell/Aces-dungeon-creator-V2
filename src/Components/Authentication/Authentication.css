@@ -28,6 +28,12 @@
     text-shadow: 2px 1px #333333;
 }
 
+input {
+    color: #AF282A;
+    font-family: 'Metal Mania', cursive;
+    font-size: 1.2rem;
+}
+
 .login-button {
     background-color: #3DE1FF;
     margin: 0 0 1vh 0;
