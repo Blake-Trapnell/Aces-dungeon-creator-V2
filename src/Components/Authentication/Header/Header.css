@@ -1,0 +1,25 @@
+.header-outer {
+    display: flex;
+    align-items: center;
+    height: 12vh;
+    width: 100vw;
+    background-color: #333333;
+    color: #F0EDEE;
+    font-size: 3rem;
+    font-family: 'Metal Mania', cursive;
+    text-shadow: 1px 2px #3DE1FF;
+    border-radius: 0 0 20px 20px;
+}
+
+.header-aces {
+    margin: 0 0 0 5%;
+}
+
+.header-logo {
+    height: 50px;
+    width: 50px;
+    background-image: url("https://lh3.googleusercontent.com/nuiuNQY75ixA93bx3DRU76VlAEeHLl3wP-IdiHTHRY_CSgf4HCvhU8y1lwd-jpWP7YM_Z2BlFrJ0qmwIdqEep23NWSLfQhOogRz11-inZD8gY6pFtIVzLsQLIHCfrCCaBzgBqkyT7w34CSyUgzJN9PiKAcOzDao1QMEdutvz-nqsqKseTqaa1ScHTyHO1qlFpjTpXCQubuB_1lBKG4zh7ttGPuFB3_eYA91pFBqhk8VW7sZ3jd6CM5jSS4RNfwcIKu_WFmwFM72kBgBM05UyvK9beM1N3EmFbNNGEy33hALMAl1hZGjm1oVYJ-CWnJgtW4hFQg6dOrNmo2ky0qgXcnLXf4z_fHdPZOdfNdvTKGFIqjA9iCtD_9PDiE7NKX4ySQfauZsDBGB8SBLUYp-JSRzED5BWHRmUnQ9riUMlrA25IDnGDJkexKu-dd2VmCioe2NCON21X21CGeENe0Xf1XJOBQJZWBqYeIk6pRX6uPhmoGylhSEXqSIWK797mnNUcyj-j-i6G9UkPWuHSC8G2G9bfz2lwIUsjCKd_0Yuoaj6QSGQXyP6DEieJ8QETFOYIbbtr9Njg6u6flbgx18_EFhuwFo9Yv7bju0zfI3x8d0ipfmK6WkpXNKl5WXLBu3XCwZAjYI3Crh2WU-G4Cp_tyvaiME-rWWufRCqbnoot-0u2OMPjOm-mA=w864-h990-no");
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin: 0 0 0 5%;
+}
