@@ -20,10 +20,23 @@
 
 .login-inputs {
     margin: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
 .login-text {
     margin: 10px 0 0 0;
+}
+
+.log-me-in {
+    height: 40px;
+    width: 70px;
+    border: none;
+    background-color: #3DE1FF;
+    margin: 10px 0 0 0;
+    font-family: 'Metamorphous', cursive;
+    color: #333333;
+    border-radius: 5px;
 }
 
 .login-lower {

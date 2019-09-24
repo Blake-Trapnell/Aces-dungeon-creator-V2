@@ -7,13 +7,13 @@
 }
 
 .authentication-navigation {
-    height: 100vh;
+    height: 30vh;
     width: 15vw;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    position: relative;
-    bottom: 50vh;
+    position: absolute;
+    top: 50vh;
 }
 
 .authentication-navigation-buttons {

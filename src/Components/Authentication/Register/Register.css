@@ -1,0 +1,47 @@
+.register-outer {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.register-upper {
+    font-family: 'Metal Mania', cursive;
+    height: 40%;
+    width: 60%;
+    display: flex;
+    color: #8C88A0;
+    text-shadow: 1px 1px #333333;
+    font-size: 1.5rem;
+    flex-direction: column;
+}
+
+.register-text {
+    margin: 10px 0 0 0;
+}
+
+.register-lower {
+    font-family: 'Metal Mania', cursive;
+    color: #8C88A0;
+    text-shadow: 1px 1px #333333;
+    font-size: 1.5rem;
+    height: 60%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center
+}
+
+.register-dungeonmaster-radio {
+    display: flex;
+    justify-content: space-around;
+    height: 20%;
+    width: 100%;
+}
+
+.dm-yes,
+.dm-no {
+    margin: 5px 0 0 0;
+}
