@@ -34,14 +34,18 @@
     align-items: center
 }
 
-.register-dungeonmaster-radio {
+.register-container {
     display: flex;
     justify-content: space-around;
-    height: 20%;
+    height: 30%;
     width: 100%;
+    align-items: center;
 }
 
-.dm-yes,
-.dm-no {
-    margin: 5px 0 0 0;
+.register-button-container {
+    display: flex;
+    justify-content: space-around;
+    height: 30%;
+    width: 100%;
+    align-items: center;
 }

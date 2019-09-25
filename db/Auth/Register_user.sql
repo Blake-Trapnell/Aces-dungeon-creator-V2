@@ -1,3 +1,3 @@
-INSERT INTO users (username, email, dungeon_master, hash)
-VALUES ($1, $2, $3, $4)
+INSERT INTO users (username, email, prime, prime_time, hash)
+VALUES ($1, $2, $3, $4, $5)
 RETURNING *;

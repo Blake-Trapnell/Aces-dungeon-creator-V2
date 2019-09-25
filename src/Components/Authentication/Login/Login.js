@@ -1,7 +1,10 @@
 import React, { Component } from "react"
+import axios from "axios"
+import Swal from "sweetalert2"
+import {withRouter} from "react-router-dom"
 import './Login.css'
 
-export default class Login extends Component {
+class Login extends Component {
     constructor(props) {
         super(props)
         this.state= {
@@ -17,17 +20,36 @@ export default class Login extends Component {
             backgroundPosition
         })
     }
-
+    logmein = async () => {
+        const {username, password} = this.state
+        let user = await axios.post('/auth/users/login', {username, password})
+        user = user.data.user
+        if(user) {
+          return  this.props.history.push('/home')
+        }
+        else {
+            Swal.fire({
+                type: 'error',
+                title: 'Oops...',
+                text: 'Wrong Username & or Password'
+              })
+        }
+    }
+    handleChange = (key, e) => {
+        this.setState({
+            [key]: e
+        })
+    }
     render() {
         return (
             <div className="login-outer">
                 <div className="login-upper">
                     <div className="login-inputs">
                         <h3 className="login-text">Login</h3>
-                        <input type="text" />
+                        <input onChange={(e)=>{this.handleChange("username",e.target.value)}} type="text" />
                         <h3 className="login-text">Password</h3>
-                        <input type="password" />
-                        <button className='log-me-in'>Login</button>
+                        <input onChange={(e)=>{this.handleChange("password",e.target.value)}} type="password" />
+                        <button onClick={()=> {this.logmein(this.state.username, this.state.password)}} className='log-me-in'>Login</button>
                         <h6 className="login-text">newuser ? <p onClick={()=> {this.props.navigationChange('Reg')}} className="login-clickhere">ClickHere</p></h6>
                     </div>
                 </div>
@@ -47,3 +69,5 @@ export default class Login extends Component {
         )
     }
 }
+
+export default withRouter(Login)
