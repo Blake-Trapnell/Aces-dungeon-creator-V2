@@ -3,6 +3,7 @@ import "./Authentication.css"
 import Header from "./Header/Header.js"
 import Login from "./Login/Login.js"
 import Register from "./Register/Register.js"
+import About from "./About/About.js"
 
 export default class Authentication extends Component {
     constructor(){
@@ -24,6 +25,7 @@ export default class Authentication extends Component {
                 <Header />
                 {this.state.navigation=== "Login" ? <Login navigationChange = {this.navigationChange} /> : null}
                 {this.state.navigation === "Reg" ? <Register /> : null}
+                {this.state.navigation === "About" ? <About/> : null}
                 <div className="authentication-navigation">
                     <div style = {this.state.navigation === "Login" ? {display: "none"}: null} onClick={()=> {this.navigationChange("Login")}} className="authentication-navigation-buttons login-button">
                         <h6>Login</h6>

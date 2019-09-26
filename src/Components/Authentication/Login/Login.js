@@ -21,18 +21,34 @@ class Login extends Component {
         })
     }
     logmein = async () => {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+          })
         const {username, password} = this.state
         let user = await axios.post('/auth/users/login', {username, password})
-        user = user.data.user
-        if(user) {
+        console.log(user)
+        user = user.data
+        if(user.message === "Logged in") {
+            Toast.fire({
+                type: "success",
+                title: `${username} signed in`
+            })
           return  this.props.history.push('/home')
         }
-        else {
-            Swal.fire({
-                type: 'error',
-                title: 'Oops...',
-                text: 'Wrong Username & or Password'
-              })
+        else if (user.message === "Username not found"){
+            Toast.fire({
+                type: "error",
+                title: 'Username not found'
+            })
+        }
+        else if(user.message === "wrong") {
+            Toast.fire({
+                type: "error",
+                title: 'Wrong username & or password'
+            })
         }
     }
     handleChange = (key, e) => {

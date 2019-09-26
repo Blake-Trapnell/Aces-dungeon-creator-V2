@@ -22,40 +22,45 @@ class Register extends Component {
         })
     }
     registerMe = async () => {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+          })
         const{username, password, passwordconfirm, email, prime, prime_time} = this.state
         if(password !== passwordconfirm) {
-            return Swal.fire({
-                type: 'error',
-                title: 'Passwords do not match',
-                text: 'Please make your passwords match',
-              })
+            return   Toast.fire({
+                type: "error",
+                title: `passwords do not match`
+            })
             }
         else if(username === "" || password === "" || passwordconfirm === "") {
-            return Swal.fire({
-                type: 'error',
-                title: 'Empty Fields',
-                text: 'Please fill in the required fields',
-              })
+            return Toast.fire({
+                type: "error",
+                title: `please fill in required fields`
+            })
         }
         else if(password.length < 5) {
-            return Swal.fire({
-                type: 'error',
-                title: 'Password too short',
-                text: 'Please make your password 5 or more characters',
-              })
+            return Toast.fire({
+                type: "error",
+                title: `passwords must be 5 or more characters`
+            })
         }
        const user = await Axios.post('auth/users/register', {username, password, passwordconfirm, email, prime, prime_time})
-       if(user) {
-           this.props.history.push('/home')
+       if(user.data.message === "logged in") {
+         Toast.fire({
+            type: "success",
+            title: `Welcome ${username}`
+        })
+         return  this.props.history.push('/home')
        }
-       else(
-        Swal.fire({
-            type: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong!',
-            footer: '<a href>Why do I have this issue?</a>'
-          })
-       )
+       else
+        return Toast.fire({
+            type: "error",
+            title: `username & or email is already in use`
+        })
+       
     }
 
 promoCode = (promocode) => {

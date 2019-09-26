@@ -1,0 +1,44 @@
+.about-outer {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    background-color: #F0EDEE;
+    align-items: flex-end;
+}
+
+.information1 {
+    height: 30%;
+    width: 80%;
+    border: 2px solid #8C88A0;
+    margin: 3%;
+    background-color: #333333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #F0EDEE;
+    font-size: 1.2rem;
+}
+
+.information2 {
+    height: 30%;
+    width: 80%;
+    border: 2px solid #3DE1FF;
+    background-color: #8C88A0;
+    margin: 3%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #F0EDEE;
+}
+
+.information3 {
+    height: 30%;
+    width: 80%;
+    border: 2px solid #333333;
+    margin: 3%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.1rem;
+}
