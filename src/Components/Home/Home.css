@@ -23,7 +23,20 @@
     height: 100%;
     width: 20%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.home-logout-button {
+    font-family: 'Metamorphous', cursive;
+    height: 50%;
+    width: 100%;
+    background-color: aqua;
+    border: 1px solid #333333;
+    border-radius: 0 0 0 20px;
+    color: #F0EDEE;
+    font-size: 1.4rem;
+    text-shadow: 1px 1px #333333;
 }
 
 .home-help-button {
@@ -32,7 +45,7 @@
     width: 100%;
     background-color: aqua;
     border: 1px solid #333333;
-    border-radius: 0 0 0 20px;
+    border-radius: 20px 0 0 0;
     color: #F0EDEE;
     font-size: 1.4rem;
     text-shadow: 1px 1px #333333;
@@ -49,12 +62,70 @@
 .home-navigation {
     height: 80%;
     width: 15%;
-    background-color: aqua;
     margin: 0 5% 0 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.adventure-league,
+.random-creator,
+.custom-create {
+    height: 30%;
+    width: 90%;
+    border: 1px solid #333333;
+    border-radius: 0 20px 20px 0;
+    font-family: 'Metal mania', cursive;
+    font-size: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.adventure-league {
+    background-color: rgb(250, 227, 99);
+}
+
+.random-creator {
+    background-color: rgb(159, 252, 159);
+}
+
+.custom-create {
+    background-color: rgb(175, 219, 247);
+}
+
+.navigation-subtext {
+    font-size: .5rem;
 }
 
 .home-main-display {
     width: 70%;
     height: 100%;
     background-color: #333333;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.fun-fact {
+    height: 20%;
+    width: 100%;
+    background-color: brown;
+    display: flex;
+    align-items: center;
+    font-size: 1.3rem;
+    font-family: "metal mania", cursive
+}
+
+.did-you-know {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-information {
+    font-size: 1rem;
+    padding: 10%;
 }

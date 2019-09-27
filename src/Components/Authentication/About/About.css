@@ -5,6 +5,7 @@
     flex-direction: column;
     background-color: #F0EDEE;
     align-items: flex-end;
+    overflow: hidden;
 }
 
 .information1 {
