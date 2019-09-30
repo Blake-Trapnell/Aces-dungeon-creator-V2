@@ -1,6 +1,7 @@
 import React from "react"
 import "./Home.css"
 import Header from "../Authentication/Header/Header.js"
+import {Link} from "react-router-dom"
 
 export default function Home() {
     return(
@@ -20,10 +21,10 @@ export default function Home() {
                         <h1 >A.L.</h1>
                         <h6 className="navigation-subtext">Adventure <p>League</p></h6>
                     </div>
-                    <div className="random-creator">
+                    <Link className="random-creator" to = "/Random-Creator">
                         <h1>R.C</h1>
                         <h6 className="navigation-subtext">Random <p>Creator</p></h6>
-                    </div>
+                    </Link>
                     <div className="custom-create">
                         <h1>C.C</h1>
                         <h6 className="navigation-subtext">Custom <p>Create</p></h6>
