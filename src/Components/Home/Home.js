@@ -21,7 +21,7 @@ export default function Home() {
                         <h1 >A.L.</h1>
                         <h6 className="navigation-subtext">Adventure <p>League</p></h6>
                     </div>
-                    <Link className="random-creator" to = "/Random-Creator">
+                    <Link className="random-creator" to = "/Random">
                         <h1>R.C</h1>
                         <h6 className="navigation-subtext">Random <p>Creator</p></h6>
                     </Link>
