@@ -1,13 +1,15 @@
 import React, { Component } from "react"
 import "./Random.css"
+// import Axios from "axios"
 
 export default class random extends Component {
     state = {
-        playerClass: "",
-        playerRace: "",
+        playerClass: 0,
+        playerRace: 0,
+        characterName: "",
         playerName: "",
-        alignment: "",
-        background: "",
+        alignment: 0,
+        background: 0,
         str: 0,
         dex: 0,
         con: 0,
@@ -34,20 +36,41 @@ export default class random extends Component {
         Armor: 0,
         Speed: 30,
         hitDice: 0,
+    }
+    easy = async () => {
+        let {playerClass, playerRace, background, alignment} = this.state
+        background = +background
+        alignment = +alignment
+        playerRace = +playerRace
+        playerClass = +playerClass
+        if(playerClass === 0) playerClass = Math.ceil(Math.random() * 12)
+        if(playerRace === 0) playerRace = Math.ceil(Math.random() * 9)
+        if(background === 0) background = Math.ceil(Math.random() * 13)
+        if(alignment === 0) alignment = Math.ceil(Math.random() * 9)
 
-
-
+        this.setState({
+            playerClass,
+            playerRace,
+            background,
+            alignment
+        })
+    }
+    handleChange = (key, e) => {
+        this.setState({
+            [key]: e
+        })
+        console.log(this.state)
     }
 
     render() {
-
+        console.log(this.state)
         return (
             <div className="random-outer">
                 <div className="random-top">
                     <div className="random-left">
-                        <input className="random-inputs" type="text" placeholder="Character Name" />
-                        <select className="random-inputs" name="Class" id="Class">
-                            <option value="Class">Class</option>
+                        <input onChange={e => this.handleChange("characterName", e.target.value)} className="random-inputs" type="text" placeholder="Name" value={this.state.characterName}/>
+                        <select onChange={e => this.handleChange("playerClass", e.target.value)} className="random-inputs" name="Class" id="Class">
+                            <option value="0">Class</option>
                             <option value="1">Barbarian</option>
                             <option value="2">Bard</option>
                             <option value="3">Cleric</option>
@@ -61,8 +84,8 @@ export default class random extends Component {
                             <option value="11">Warlock</option>
                             <option value="12">Wizard</option>
                         </select>
-                        <select className="random-inputs" name="Race" id="Race">
-                            <option value="Race">Race</option>
+                        <select onChange={e => this.handleChange("playerRace", e.target.value)} className="random-inputs" name="Race" id="Race">
+                            <option value="0">Race</option>
                             <option value="1">Dwarf</option>
                             <option value="2">Elf</option>
                             <option value="3">Halfing</option>
@@ -75,34 +98,34 @@ export default class random extends Component {
                         </select>
                     </div>
                     <div className="random-right">
-                        <input className="random-inputs" type="text" placeholder="Player Name" />
-                        <select className="random-inputs" name="Background" id="Background">
-                            <option value="Background">Background</option>
-                            <option value="acoylte">Acoylte</option>
-                            <option value="charlatan">Charlatan</option>
-                            <option value="criminal_spy">Criminal / Spy</option>
-                            <option value="entertainer">Entertainer</option>
-                            <option value="folk_Hero">Folk Hero</option>
-                            <option value="guild_Artisan">Guild Artisan</option>
-                            <option value="hermit">Hermit</option>
-                            <option value="noble">Noble</option>
-                            <option value="outlander">Outlander</option>
-                            <option value="sage">Sage</option>
-                            <option value="sailor">Sailor</option>
-                            <option value="soldier">Soldier</option>
-                            <option value="urchin">Urchin</option>
+                        <input onChange={e => this.handleChange("playerName", e.target.value)} className="random-inputs" type="text" placeholder="Player Name" value={this.state.playerName} />
+                        <select onChange={e => this.handleChange("background", e.target.value)} className="random-inputs" name="Background" id="Background">
+                            <option value="0">Background</option>
+                            <option value="1">Acoylte</option>
+                            <option value="2">Charlatan</option>
+                            <option value="3">Criminal / Spy</option>
+                            <option value="4">Entertainer</option>
+                            <option value="5">Folk Hero</option>
+                            <option value="6">Guild Artisan</option>
+                            <option value="7">Hermit</option>
+                            <option value="8">Noble</option>
+                            <option value="9">Outlander</option>
+                            <option value="10">Sage</option>
+                            <option value="11">Sailor</option>
+                            <option value="12">Soldier</option>
+                            <option value="13">Urchin</option>
                         </select>
-                        <select className="random-inputs" name="Alignment" id="Alignment">
-                            <option value="Alignment">Alignment</option>
-                            <option value="Lawful Good">Lawful Good</option>
-                            <option value="Neutral Good">Neutral Good</option>
-                            <option value="Chaotic Good">Chaotic Good</option>
-                            <option value="Lawful Neutral">Lawful Neutral</option>
-                            <option value="Neutral">Neutral</option>
-                            <option value="Chaotic Neutral">Chaotic Neutral</option>
-                            <option value="Lawful Evil">Lawful Evil</option>
-                            <option value="Neutral Evil">Neutral Evil</option>
-                            <option value="Chaotic Evil">Chaotic Evil</option>
+                        <select onChange={e => this.handleChange("alignment", e.target.value)} className="random-inputs" name="Alignment" id="Alignment">
+                            <option value="0">Alignment</option>
+                            <option value="1">Lawful Good</option>
+                            <option value="2">Neutral Good</option>
+                            <option value="3">Chaotic Good</option>
+                            <option value="4">Lawful Neutral</option>
+                            <option value="5">Neutral</option>
+                            <option value="6">Chaotic Neutral</option>
+                            <option value="7">Lawful Evil</option>
+                            <option value="8">Neutral Evil</option>
+                            <option value="9">Chaotic Evil</option>
                         </select>
                     </div>
                 </div>
@@ -111,7 +134,7 @@ export default class random extends Component {
                     <div className="random-right"></div>
                 </div>
                 <div className="button-container">
-                    <button className="random easy">Easy</button>
+                    <button onClick = {this.easy} className="random easy">Easy</button>
                     <button className="random normal">Normal</button>
                     <button className="random hard">Hard</button>
                     <button className="random mayhem">Mayhem</button>

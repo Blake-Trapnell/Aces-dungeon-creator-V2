@@ -8,6 +8,7 @@
     height: 25vh;
     width: 100vw;
     background-color: #8C88A0;
+    display: flex;
 }
 
 .random-bottom {
@@ -15,6 +16,7 @@
     height: 25vh;
     width: 100vw;
     background-color: #8C88A0;
+    display: flex;
 }
 
 .random-left {
@@ -50,5 +52,5 @@
 }
 
 .random-inputs {
-    width: 100%;
+    width: 80%;
 }

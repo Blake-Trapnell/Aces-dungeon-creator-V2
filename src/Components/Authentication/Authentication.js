@@ -37,6 +37,8 @@ export default class Authentication extends Component {
                         <h6>About</h6>
                     </div>
                 </div>
+                
+                
 
             </div>
         )
