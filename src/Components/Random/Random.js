@@ -10,12 +10,12 @@ export default class random extends Component {
         playerName: "",
         alignment: 0,
         background: 0,
-        str: 0,
-        dex: 0,
-        con: 0,
-        int: 0,
-        wis: 0,
-        cha: 0,
+        str: 8,
+        dex: 8,
+        con: 8,
+        int: 8,
+        wis: 8,
+        cha: 8,
         acro: false,
         anim: false,
         arca: false,
@@ -38,7 +38,7 @@ export default class random extends Component {
         hitDice: 0,
     }
     easy = async () => {
-        let {playerClass, playerRace, background, alignment} = this.state
+        let {playerClass, playerRace, background, alignment, str, dex, wis, int, con, cha} = this.state
         background = +background
         alignment = +alignment
         playerRace = +playerRace
@@ -47,12 +47,18 @@ export default class random extends Component {
         if(playerRace === 0) playerRace = Math.ceil(Math.random() * 9)
         if(background === 0) background = Math.ceil(Math.random() * 13)
         if(alignment === 0) alignment = Math.ceil(Math.random() * 9)
-
+        for(let i = 0; i < 32; i++) {
+            let rando = Math.ceil(Math.random() * 60)
+            if(rando <= 10) str++
+            else if (rando <= 20) dex++
+            else if (rando <= 30) wis++
+            else if (rando <= 40) int++
+            else if (rando <= 50) con++
+            else if (rando <= 60) cha++
+        }
         this.setState({
-            playerClass,
-            playerRace,
-            background,
-            alignment
+            playerClass, playerRace, background, alignment,
+            str, wis, int, dex, cha, con
         })
     }
     handleChange = (key, e) => {
