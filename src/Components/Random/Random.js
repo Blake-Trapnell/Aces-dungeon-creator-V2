@@ -1,15 +1,15 @@
 import React, { Component } from "react"
 import "./Random.css"
-// import Axios from "axios"
+import Axios from "axios"
 
 export default class random extends Component {
     state = {
-        playerClass: 0,
-        playerRace: 0,
+        playerClass: "0",
+        playerRace: "0",
         characterName: "",
         playerName: "",
-        alignment: 0,
-        background: 0,
+        alignment: "0",
+        background: "0",
         str: 8,
         dex: 8,
         con: 8,
@@ -35,14 +35,28 @@ export default class random extends Component {
         surv: false,
         Armor: 0,
         Speed: 30,
+        size: 'medium',
         hitDice: 0,
     }
     easy = async () => {
         // destructure state to be used in function
-        let {playerClass, playerRace, background, alignment, str, dex, wis, int, con, cha} = this.state
-        background = +background; alignment = +alignment; playerRace = +playerRace; playerClass = +playerClass
+        let {characterName, playerClass, playerRace, background, alignment, str, dex, wis, int, con, cha, speed, size} = this.state
+        if(characterName === "") {
+           let name = await Axios.get('/api/names')
+           characterName = name.data
+        }
+        // Resets in case user has already ran the function.
+        if(str !== 8 || dex !== 8 || wis !== 8 || int !== 8 || con !== 8 || cha !== 8) {
+            str = 8; dex = 8; wis = 8; int = 8; con = 8; cha = 8
+        }
+        background = +background; alignment = +alignment; playerClass = +playerClass;
+        if(playerRace.race > 0 ) {
+        }
+        else {
+            playerRace = +playerRace;
+        }
         let rando = 0
-        // assign stats at random to be able to pick best class / race
+        // assign stats at random
         for(let i = 0; i < 32; i++) {
              rando = Math.ceil(Math.random() * 60)
             if(rando <= 10) str++
@@ -56,7 +70,7 @@ export default class random extends Component {
        let stats=[str,dex,wis,int,con,cha]
        // highest = the highest of the stats that were randomly generated.
        // val = the position in the array so that we can assign a class based
-       // off of that highest value
+       // off of that highest value 
        var highest = 0
        var val = null
         for(let i = 0; i < 6; i++) {
@@ -96,56 +110,69 @@ export default class random extends Component {
                 else if(rando <= 30) playerClass = 9
                 else playerClass = 10
                 break;
+                default : alert('whoops an error happened')
             }
         }
+                // if playerRace was unselected, assign Race based off
+        // of the highest value stat that the Race adds bonuses to.
+        console.log(str,dex,wis,int,con,cha)
+        console.log(val)
         if(playerRace === 0) {
             switch(val){
             case 0: rando = (Math.random() * 40)
-                if(rando <= 10) playerRace = {race: 1, subrace: "Hill Dwarf"}
-                else if(rando <= 20) playerRace = {race:8, subrace: "half-Orc"}
-                else if(rando <= 30) playerRace = {race: 5, subrace: "Dragonborn"}
-                else playerRace = {race: 4, subrace: "Human"}
+                if(rando <= 10) {playerRace = {race: 1, subrace: 1}; con+= 2; wis++; size= "medium"; speed= 25}
+                else if(rando <= 20) {playerRace = {race: 8, subrace: 0}; str+= 2; con++; size="medium"; speed= 30}
+                else if(rando <= 30) {playerRace = {race: 5, subrace: 0}; str+= 2; cha++; size="medium"; speed= 30}
+                else {playerRace = {race: 4, subrace: 0}; str++; dex++; wis++; int++; con++; cha++; size="medium"; speed= 30}
                 break;
             case 1: rando = (Math.random() * 40)
                 if(rando <= 10) playerRace = 2
-                else if(rando <= 20) playerRace = {race: 6, subrace: "Forest Gnome"}
-                else if(rando <= 30) playerRace = {race: 3, subrace: "Halfling"}
-                else playerRace = {race: 4, subrace: "Human"}
+                else if(rando <= 20) {playerRace = {race: 6, subrace: 1}; int+= 2; dex++; size="small"; speed= 25 }
+                else if(rando <= 30){ playerRace = {race: 3, subrace: 1}; dex+= 2; cha++; size="small"; speed= 25 }
+                else {playerRace = {race: 4, subrace: 0}; str++; dex++; wis++; int++; con++; cha++; size="medium"; speed= 30}
                 break;
             case 2: rando = (Math.random() * 50)
-                if(rando <= 10) playerRace = {race: 1, subrace: "Dwarf"}
-                else if(rando <= 20) playerRace = {race: 8, subrace:"Half-Orc"}
-                else if(rando <= 30) playerRace = {race: 3, subrace:"Stout-Halfling"}
-                else if(rando <= 40) playerRace = {race: 6, subrace:"Rock Gnome"}
-                else playerRace = {race: 4, subrace: "Human"}
+                if(rando <= 10){ playerRace = {race: 1, subrace: 2}; con+= 2; str+= 2 ; size="medium"; speed= 25}
+                else if(rando <= 20) {playerRace = {race: 8, subrace: 0}; str+= 2; con++; size="medium"; speed= 30}
+                else if(rando <= 30) {playerRace = {race: 3, subrace: 2}; dex+= 2; con++; size="small"; speed= 25}
+                else if(rando <= 40) {playerRace = {race: 6, subrace: 2}; int+= 2; con++; size="small"; speed= 25}
+                else {playerRace = {race: 4, subrace: 0}; str++; dex++; wis++; int++; con++; cha++; size="medium"; speed= 30}
                 break;
              case 3: rando = (Math.random() * 40)
-                if(rando <= 10) playerRace = {race: 2, subrace: "High Elf"}
-                else if(rando <= 20) playerRace = {race: 9, subrace: "Tiefling"}
-                else if(rando <= 30) playerRace = {race: 6, subrace: "Gnome"}
-                else playerRace = {race: 4, subrace: "Human"}
+                if(rando <= 10) { playerRace = {race: 2, subrace: 1}; dex+= 2; wis++; size="medium"; speed= 30 }
+                else if(rando <= 20) {playerRace = {race: 9, subrace: 0}; cha+= 2; int++; size="medium"; speed= 30}
+                else if(rando <= 30) {playerRace = {race: 6, subrace: 1}; int+= 2; dex++; size="small"; speed= 25}
+                else {playerRace = {race: 4, subrace: 0}; str++; dex++; wis++; int++; con++; cha++; size="medium"; speed= 30}
                 break;
             case 4: rando = (Math.random() * 30)
-                if(rando <= 10) playerRace = {race: 1, subrace: "Hill Dwarf"}
-                else if(rando <= 20) playerRace = {race: 2, subrace: "Wood Elf"}
-                else playerRace = {race: 4, subrace: "Human"}
+                if(rando <= 10){ playerRace = {race: 1, subrace: 1}; con+= 2; wis++; size="medium"; speed =25 }
+                else if(rando <= 20) { playerRace = {race: 2, subrace: 2}; dex+= 2; int++; size="medium"; speed= 30 }
+                else {playerRace = {race: 4, subrace: 0}; str++; dex++; wis++; int++; con++; cha++; size="medium"; speed= 30 }
                 break;
             case 5: rando = (Math.random() * 60)
-                if(rando <= 10) playerRace = {race: 2, subrace: "Half Elf"}
-                else if(rando <= 20) playerRace = {race: 2, subrace: "Drow"}
-                else if(rando <= 30) playerRace = {race: 3, subrace:"Lightfoot Halfing"}
-                else if(rando <= 40) playerRace = {rae: 5, subrace:"Dragonborn"}
-                else if(rando <= 50) playerRace = {race: 9, subrace: "Tiefling"}
-                else playerRace = {race: 4, subrace: "Human"}
+                if(rando <= 10) { playerRace = {race: 7, subrace: 0}; cha+= 2; con++; dex++; size="medium"; speed= 30 }
+                else if(rando <= 20){ playerRace = {race: 2, subrace: 3}; dex+= 2; cha++; size="medium"; speed= 30 }
+                else if(rando <= 30){ playerRace = {race: 3, subrace: 1}; dex+= 2; cha++; size="small"; speed= 25 }
+                else if(rando <= 40) {playerRace = {race: 5, subrace: 0}; str+= 2; cha++; size="medium"; speed= 30}
+                else if(rando <= 50) {playerRace = {race: 9, subrace: 0}; cha+= 2; int++; size="medium"; speed= 30}
+                else {playerRace = {race: 4, subrace: 0}; str++; dex++; wis++; int++; con++; cha++; size="medium"; speed= 30}
                 break;
+                default : alert('whoops an error happened')
             }
         }
-        console.log("stats", stats, "class", playerClass, "Race", playerRace)
+        console.log(str,dex,wis,int,con,cha)
+        let racialTraits = await Axios.post(`/api/racialtraits`, {playerRace})
+
+        //Assign background and Alignment if previously unselected
         if(background === 0) background = Math.ceil(Math.random() * 13)
+        let backgroundSkills = await Axios.get(`/api/backgroundskills/${background}`)
+        backgroundSkills = backgroundSkills.data
+
         if(alignment === 0) alignment = Math.ceil(Math.random() * 9)
+        //set state to new values that the function ran to be added to our character sheet
         this.setState({
-            playerClass, playerRace, background, alignment,
-            str, wis, int, dex, cha, con
+            characterName, playerClass, playerRace, background, alignment,
+            str, wis, int, dex, cha, con, [backgroundSkills[0].skill]: true, [backgroundSkills[1].skill]: true,
         })
     }
 
@@ -164,7 +191,7 @@ export default class random extends Component {
                 <div className="random-top">
                     <div className="random-left">
                         <input onChange={e => this.handleChange("characterName", e.target.value)} className="random-inputs" type="text" placeholder="Name" value={this.state.characterName}/>
-                        <select onChange={e => this.handleChange("playerClass", e.target.value)} className="random-inputs" name="Class" id="Class">
+                        <select value={this.state.playerClass} onChange={e => this.handleChange("playerClass", e.target.value)} className="random-inputs" name="Class" id="Class">
                             <option value="0">Class</option>
                             <option value="1">Barbarian</option>
                             <option value="2">Bard</option>
@@ -179,7 +206,7 @@ export default class random extends Component {
                             <option value="11">Warlock</option>
                             <option value="12">Wizard</option>
                         </select>
-                        <select onChange={e => this.handleChange("playerRace", e.target.value)} className="random-inputs" name="Race" id="Race">
+                        <select value ={this.state.playerRace} onChange={e => this.handleChange("playerRace", e.target.value)} className="random-inputs" name="Race" id="Race">
                             <option value="0">Race</option>
                             <option value="1">Dwarf</option>
                             <option value="2">Elf</option>
@@ -194,7 +221,7 @@ export default class random extends Component {
                     </div>
                     <div className="random-right">
                         <input onChange={e => this.handleChange("playerName", e.target.value)} className="random-inputs" type="text" placeholder="Player Name" value={this.state.playerName} />
-                        <select onChange={e => this.handleChange("background", e.target.value)} className="random-inputs" name="Background" id="Background">
+                        <select value={this.state.background} onChange={e => this.handleChange("background", e.target.value)} className="random-inputs" name="Background" id="Background">
                             <option value="0">Background</option>
                             <option value="1">Acoylte</option>
                             <option value="2">Charlatan</option>
@@ -210,7 +237,7 @@ export default class random extends Component {
                             <option value="12">Soldier</option>
                             <option value="13">Urchin</option>
                         </select>
-                        <select onChange={e => this.handleChange("alignment", e.target.value)} className="random-inputs" name="Alignment" id="Alignment">
+                        <select value={this.state.alignment} onChange={e => this.handleChange("alignment", e.target.value)} className="random-inputs" name="Alignment" id="Alignment">
                             <option value="0">Alignment</option>
                             <option value="1">Lawful Good</option>
                             <option value="2">Neutral Good</option>
