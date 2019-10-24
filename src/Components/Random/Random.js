@@ -38,17 +38,13 @@ export default class random extends Component {
         hitDice: 0,
     }
     easy = async () => {
+        // destructure state to be used in function
         let {playerClass, playerRace, background, alignment, str, dex, wis, int, con, cha} = this.state
-        background = +background
-        alignment = +alignment
-        playerRace = +playerRace
-        playerClass = +playerClass
-        if(playerClass === 0) playerClass = Math.ceil(Math.random() * 12)
-        if(playerRace === 0) playerRace = Math.ceil(Math.random() * 9)
-        if(background === 0) background = Math.ceil(Math.random() * 13)
-        if(alignment === 0) alignment = Math.ceil(Math.random() * 9)
+        background = +background; alignment = +alignment; playerRace = +playerRace; playerClass = +playerClass
+        let rando = 0
+        // assign stats at random to be able to pick best class / race
         for(let i = 0; i < 32; i++) {
-            let rando = Math.ceil(Math.random() * 60)
+             rando = Math.ceil(Math.random() * 60)
             if(rando <= 10) str++
             else if (rando <= 20) dex++
             else if (rando <= 30) wis++
@@ -56,11 +52,104 @@ export default class random extends Component {
             else if (rando <= 50) con++
             else if (rando <= 60) cha++
         }
+        // assign stats to an array to be looped through in a for statement
+       let stats=[str,dex,wis,int,con,cha]
+       // highest = the highest of the stats that were randomly generated.
+       // val = the position in the array so that we can assign a class based
+       // off of that highest value
+       var highest = 0
+       var val = null
+        for(let i = 0; i < 6; i++) {
+            if(stats[i] > highest) {
+                highest = stats[i]
+                val = i }}
+        // if playerClass was unselected, assign class based off
+        // of the highest value stat that the class uses.
+        if (playerClass === 0) {
+            switch(val) {
+                case 0: rando = (Math.random() * 30)
+                if(rando <= 10) playerClass = 1
+                else if(rando <= 20) playerClass = 5
+                else playerClass = 7
+                break;
+                case 1: rando = (Math.random() * 30)
+                if(rando <= 10) playerClass = 6
+                else if(rando <= 20) playerClass = 5
+                else playerClass = 8
+                break;
+                case 2: rando = (Math.random() * 40)
+                if(rando <= 10) playerClass = 3
+                else if(rando <= 20) playerClass = 4
+                else if(rando <= 30) playerClass = 6
+                else playerClass = 8
+                break;
+                case 3: playerClass = 11
+                break;
+                case 4: rando = (Math.random() * 40)
+                if(rando <= 10) playerClass = 1
+                else if(rando <= 20) playerClass = 5
+                else playerClass = 9
+                break;
+                case 5: rando = (Math.random() * 30)
+                if(rando <= 10) playerClass = 2
+                else if(rando <= 20) playerClass = 7
+                else if(rando <= 30) playerClass = 9
+                else playerClass = 10
+                break;
+            }
+        }
+        if(playerRace === 0) {
+            switch(val){
+            case 0: rando = (Math.random() * 40)
+                if(rando <= 10) playerRace = {race: 1, subrace: "Hill Dwarf"}
+                else if(rando <= 20) playerRace = {race:8, subrace: "half-Orc"}
+                else if(rando <= 30) playerRace = {race: 5, subrace: "Dragonborn"}
+                else playerRace = {race: 4, subrace: "Human"}
+                break;
+            case 1: rando = (Math.random() * 40)
+                if(rando <= 10) playerRace = 2
+                else if(rando <= 20) playerRace = {race: 6, subrace: "Forest Gnome"}
+                else if(rando <= 30) playerRace = {race: 3, subrace: "Halfling"}
+                else playerRace = {race: 4, subrace: "Human"}
+                break;
+            case 2: rando = (Math.random() * 50)
+                if(rando <= 10) playerRace = {race: 1, subrace: "Dwarf"}
+                else if(rando <= 20) playerRace = {race: 8, subrace:"Half-Orc"}
+                else if(rando <= 30) playerRace = {race: 3, subrace:"Stout-Halfling"}
+                else if(rando <= 40) playerRace = {race: 6, subrace:"Rock Gnome"}
+                else playerRace = {race: 4, subrace: "Human"}
+                break;
+             case 3: rando = (Math.random() * 40)
+                if(rando <= 10) playerRace = {race: 2, subrace: "High Elf"}
+                else if(rando <= 20) playerRace = {race: 9, subrace: "Tiefling"}
+                else if(rando <= 30) playerRace = {race: 6, subrace: "Gnome"}
+                else playerRace = {race: 4, subrace: "Human"}
+                break;
+            case 4: rando = (Math.random() * 30)
+                if(rando <= 10) playerRace = {race: 1, subrace: "Hill Dwarf"}
+                else if(rando <= 20) playerRace = {race: 2, subrace: "Wood Elf"}
+                else playerRace = {race: 4, subrace: "Human"}
+                break;
+            case 5: rando = (Math.random() * 60)
+                if(rando <= 10) playerRace = {race: 2, subrace: "Half Elf"}
+                else if(rando <= 20) playerRace = {race: 2, subrace: "Drow"}
+                else if(rando <= 30) playerRace = {race: 3, subrace:"Lightfoot Halfing"}
+                else if(rando <= 40) playerRace = {rae: 5, subrace:"Dragonborn"}
+                else if(rando <= 50) playerRace = {race: 9, subrace: "Tiefling"}
+                else playerRace = {race: 4, subrace: "Human"}
+                break;
+            }
+        }
+        console.log("stats", stats, "class", playerClass, "Race", playerRace)
+        if(background === 0) background = Math.ceil(Math.random() * 13)
+        if(alignment === 0) alignment = Math.ceil(Math.random() * 9)
         this.setState({
             playerClass, playerRace, background, alignment,
             str, wis, int, dex, cha, con
         })
     }
+
+
     handleChange = (key, e) => {
         this.setState({
             [key]: e

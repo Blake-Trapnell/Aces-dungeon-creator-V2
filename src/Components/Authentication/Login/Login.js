@@ -14,7 +14,9 @@ class Login extends Component {
             password: "",
         }
     }
-
+    axios = () => {
+        axios.get('http://www.dnd5eapi.co/api/classes/5')
+    }
     backgroundPosition (backgroundPosition) {
         this.setState({
             backgroundPosition
