@@ -26,7 +26,7 @@ app.post('/auth/promo', aCtrl.applyPromo)
 //sheets
 app.get('/api/names', sCtrl.randomName)
 app.get('/api/backgroundskills/:background', sCtrl.backgroundSkills)
-app.get('/api/classskills/:playerClass', sCtrl.classSkills)
+app.get('/api/classskills/:playerClass/:playerRace', sCtrl.classSkills)
 app.post('/api/racialtraits', sCtrl.racialTraits)
 
 

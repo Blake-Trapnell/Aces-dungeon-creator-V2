@@ -4,6 +4,7 @@ import Axios from "axios"
 
 export default class random extends Component {
     state = {
+        displayCharacter: false,
         playerClass: "0",
         playerRace: "0",
         characterName: "",
@@ -46,7 +47,8 @@ export default class random extends Component {
     easy = async () => {
         // destructure state to be used in function
         let { characterName, playerClass, playerRace, background, alignment, str, dex, wis, int,
-            con, cha, speed, size, hitDie, savingThrows, armorProf, weaponProf} = this.state
+            con, cha, speed, size, hitDie, savingThrows, armorProf, weaponProf, displayCharacter} = this.state
+            background = +background; alignment = +alignment; playerClass = +playerClass; displayCharacter = true;
         if (characterName === "") {
             let name = await Axios.get('/api/names')
             characterName = name.data
@@ -55,7 +57,15 @@ export default class random extends Component {
         if (str !== 8 || dex !== 8 || wis !== 8 || int !== 8 || con !== 8 || cha !== 8) {
             str = 8; dex = 8; wis = 8; int = 8; con = 8; cha = 8
         }
-        background = +background; alignment = +alignment; playerClass = +playerClass;
+
+        let racialTraits = await Axios.post(`/api/racialtraits`, { playerRace })
+        racialTraits = racialTraits.data
+        //Assign background and Alignment if previously unselected
+        if (background === 0) background = Math.ceil(Math.random() * 13)
+        let backgroundSkills = await Axios.get(`/api/backgroundskills/${background}`)
+        backgroundSkills = backgroundSkills.data
+        if (alignment === 0) alignment = Math.ceil(Math.random() * 9)
+
         if (playerRace.race > 0) { }
         else { playerRace = +playerRace; }
         let rando = 0
@@ -118,25 +128,6 @@ export default class random extends Component {
                 default: alert('whoops an error happened')
             }
         }
-        // Selects Skills that are available to the player based off the class they chose/were assigned
-        let classSkills = await Axios.get(`api/classskills/${playerClass}`)
-        classSkills = classSkills.data
-        console.log(classSkills)
-        hitDie = classSkills.hitDie
-        savingThrows = classSkills.savingThrows
-        armorProf = classSkills.armorProf
-        weaponProf = classSkills.weaponProf
-        let checked = [false, false, false, false]
-        for (let i = 0; i < classSkills.points; i++) {
-            let rando = (Math.floor((Math.random() * classSkills.skills.length )))
-            while(checked.includes(rando)) {
-             rando = (Math.floor((Math.random() * classSkills.skills.length )))
-            }
-                checked[i] = rando
-                this.setState({
-                    [classSkills.skills[rando].skill]: true
-                })
-        }
         // if playerRace was unselected, assign Race based off
         // of the highest value stat that the Race adds bonuses to.
         if (playerRace === 0) {
@@ -182,21 +173,33 @@ export default class random extends Component {
                 default: alert('whoops an error happened')
             }
         }
-        let racialTraits = await Axios.post(`/api/racialtraits`, { playerRace })
-        racialTraits = racialTraits.data
-        //Assign background and Alignment if previously unselected
-        if (background === 0) background = Math.ceil(Math.random() * 13)
-        let backgroundSkills = await Axios.get(`/api/backgroundskills/${background}`)
-        backgroundSkills = backgroundSkills.data
 
+        // Selects Skills that are available to the player based off the class they chose/were assigned
+        let classSkills = await Axios.get(`api/classskills/${playerClass}/${playerRace}`)
+        classSkills = classSkills.data
+        console.log(classSkills)
+        hitDie = classSkills.hitDie
+        savingThrows = classSkills.savingThrows
+        armorProf = classSkills.armorProf
+        weaponProf = classSkills.weaponProf
+        let checked = [false, false, false, false, false, false, false, false]
+        for (let i = 0; i < classSkills.points; i++) {
+            let rando = (Math.floor((Math.random() * classSkills.skills.length )))
+            while(checked.includes(rando)) {
+             rando = (Math.floor((Math.random() * classSkills.skills.length )))
+            }
+            console.log(classSkills.points)
+                checked[i] = rando
+                this.setState({
+                    [classSkills.skills[rando].skill]: true
+                })
+        }
 
-        if (alignment === 0) alignment = Math.ceil(Math.random() * 9)
         //set state to new values that the function ran to be added to our character sheet
-        console.log(speed)
         this.setState({
             characterName, playerClass, playerRace, background, alignment,
             str, wis, int, dex, cha, con, [backgroundSkills[0].skill]: true, [backgroundSkills[1].skill]: true, racialTraits, speed, size, 
-            hitDie, weaponProf, armorProf, savingThrows
+            hitDie, weaponProf, armorProf, savingThrows, displayCharacter
         })
     }
 
@@ -285,6 +288,14 @@ export default class random extends Component {
                     <button className="random hard">Hard</button>
                     <button className="random mayhem">Mayhem</button>
                 </div>
+                {this.state.displayCharacter === true ? 
+                <div>
+                <h1>{this.state.characterName}</h1> 
+                <h1>str:{this.state.str} dex:{this.state.dex} wis:{this.state.wis} int:{this.state.int} con: {this.state.con} cha: {this.state.cha}</h1>
+
+                </div>
+                
+                : null }
             </div>
         )
     }
