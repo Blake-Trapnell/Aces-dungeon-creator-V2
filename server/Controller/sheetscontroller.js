@@ -1,3 +1,5 @@
+const Axios = require('axios')
+
 module.exports = {
     randomName: async (req, res) => {
         console.log('name')
@@ -16,6 +18,7 @@ module.exports = {
         const db = req.app.get('db')
         let backgroundNumber = +req.params.background
         let background = ""
+
         switch (backgroundNumber) {
             case 1: background = "acoylte"
                 break;
@@ -44,10 +47,8 @@ module.exports = {
             case 13: background = "Urchin"
                 break;
         }
-        console.log('hit')
         const skills = await db.query(`select skill from background_skills
         where ${background} = true`)
-
         res.status(200).send(skills)
     },
     racialTraits: async (req, res) => {
@@ -63,7 +64,6 @@ module.exports = {
     classSkills: async (req, res) => {
         console.log('class')
         const db = req.app.get('db')
-        console.log(req.params)
         const val = +req.params.playerClass
         let points = null
         let playerClass = null
@@ -92,7 +92,45 @@ module.exports = {
             skills = await db.query(`select skill from class_race_skills
             where bard = true`)
         }
-        console.log(skills)
         res.status(200).send({ skills, points, hitDie, savingThrows, armorProf, weaponProf })
+    },
+    classEquipment: async (req,res) => {
+        let playerClass = +req.params.playerClass
+        console.log(playerClass)
+        let equipment = await Axios.get(`http://www.dnd5eapi.co/api/startingequipment/${playerClass}`)
+        equipment = equipment.data
+        // console.log(equipment)
+        // console.log(equipment.choice_1[0].from[0])
+
+        //retrieve the users starting equipment
+        let startingEquipment = equipment.starting_equipment[0].item.name
+        let quantity = equipment.starting_equipment[0].quantity
+         startingEquipment = {starting: startingEquipment, quantity: quantity}
+         console.log(startingEquipment)
+
+        //retrieve the users other equipment
+        let otherEquipment = []
+        if(equipment.choices_to_make >=1) {
+            console.log(equipment.choice_1.length)
+          let rando1 =  Math.floor(Math.random() * equipment.choice_1.length)
+          let rando2 =  Math.floor(Math.random() * equipment.choice_1[rando1].from.length)
+            console.log(rando1, rando2)
+            otherEquipment.push(equipment.choice_1[rando1].from[rando2].item.name)
+            console.log("1", otherEquipment)
+        }
+        if(equipment.choices_to_make >=2) {
+            otherEquipment.push(equipment.choice_2[1].from[0].item.name)
+            console.log("2", otherEquipment)
+        }
+        if(equipment.choices_to_make >=3) {
+            otherEquipment.push(equipment.choice_3[1].from[0].item.name)
+            console.log("3", otherEquipment)
+        }
+        if(equipment.choices_to_make >=4) {
+            otherEquipment.push(equipment.choice_4[1].from[0].item.name)
+            console.log("4", otherEquipment)
+        }
+        console.log(otherEquipment)
+
     }
 }

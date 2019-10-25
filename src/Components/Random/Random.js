@@ -5,12 +5,12 @@ import Axios from "axios"
 export default class random extends Component {
     state = {
         displayCharacter: false,
-        playerClass: "0",
-        playerRace: "0",
+        playerClass: 0,
+        playerRace: 0,
         characterName: "",
         playerName: "",
-        alignment: "0",
-        background: "0",
+        alignment: 0,
+        background: 0,
         str: 8,
         dex: 8,
         con: 8,
@@ -48,28 +48,25 @@ export default class random extends Component {
         // destructure state to be used in function
         let { characterName, playerClass, playerRace, background, alignment, str, dex, wis, int,
             con, cha, speed, size, hitDie, savingThrows, armorProf, weaponProf, displayCharacter} = this.state
-            background = +background; alignment = +alignment; playerClass = +playerClass; displayCharacter = true;
-        if (characterName === "") {
-            let name = await Axios.get('/api/names')
-            characterName = name.data
-        }
+        //Assign variables for later use in function
+        let rando = 0
+
+
+        //Display users generated Character
+        displayCharacter = true;
+
+
+        //Assign Name to character if not previously chosen
+        if (characterName === ""){ 
+            characterName = await Axios.get('/api/names')}
+        characterName = characterName.data
+
+
         // Resets in case user has already ran the function.
         if (str !== 8 || dex !== 8 || wis !== 8 || int !== 8 || con !== 8 || cha !== 8) {
-            str = 8; dex = 8; wis = 8; int = 8; con = 8; cha = 8
-        }
+            str = 8; dex = 8; wis = 8; int = 8; con = 8; cha = 8}
 
-        let racialTraits = await Axios.post(`/api/racialtraits`, { playerRace })
-        racialTraits = racialTraits.data
-        //Assign background and Alignment if previously unselected
-        if (background === 0) background = Math.ceil(Math.random() * 13)
-        let backgroundSkills = await Axios.get(`/api/backgroundskills/${background}`)
-        backgroundSkills = backgroundSkills.data
-        if (alignment === 0) alignment = Math.ceil(Math.random() * 9)
-
-        if (playerRace.race > 0) { }
-        else { playerRace = +playerRace; }
-        let rando = 0
-        // assign stats at random
+        // Randomly Generated the players Str, Dex, Wis, Int, Con, and Charisma stats.
         for (let i = 0; i < 32; i++) {
             rando = Math.ceil(Math.random() * 60)
             if (rando <= 10) str++
@@ -79,7 +76,12 @@ export default class random extends Component {
             else if (rando <= 50) con++
             else if (rando <= 60) cha++
         }
-        // assign stats to an array to be looped through in a for statement
+        //Assign background and Alignment if previously unselected
+        if (background === 0) background = Math.ceil(Math.random() * 13)
+        if (alignment === 0) alignment = Math.ceil(Math.random() * 9)
+
+        // We Need the Highest stat in order to assign the best classes/races that the stat uses.
+        //This allows the player to have a good character. and is only for the Easy and Normal buttons
         let stats = [str, dex, wis, int, con, cha]
         // highest = the highest of the stats that were randomly generated.
         // val = the position in the array so that we can assign a class based
@@ -92,6 +94,7 @@ export default class random extends Component {
                 val = i
             }
         }
+
         // if playerClass was unselected, assign class based off
         // of the highest value stat that the class uses.
         if (playerClass === 0) {
@@ -128,6 +131,7 @@ export default class random extends Component {
                 default: alert('whoops an error happened')
             }
         }
+
         // if playerRace was unselected, assign Race based off
         // of the highest value stat that the Race adds bonuses to.
         if (playerRace === 0) {
@@ -174,6 +178,15 @@ export default class random extends Component {
             }
         }
 
+        // Retrieve the two skills the players background allows.
+        let backgroundSkills = await Axios.get(`/api/backgroundskills/${background}`)
+        backgroundSkills = backgroundSkills.data
+
+        //Retrieve a list of the users Traits for the characters race.
+        let racialTraits = await Axios.post(`/api/racialtraits`, { playerRace })
+        racialTraits = racialTraits.data
+
+
         // Selects Skills that are available to the player based off the class they chose/were assigned
         let classSkills = await Axios.get(`api/classskills/${playerClass}/${playerRace}`)
         classSkills = classSkills.data
@@ -194,6 +207,11 @@ export default class random extends Component {
                     [classSkills.skills[rando].skill]: true
                 })
         }
+
+        //Get Equipment for the Character
+        let equipment = Axios.get(`/api/equipment/${playerClass}`)
+        equipment = equipment.data
+
 
         //set state to new values that the function ran to be added to our character sheet
         this.setState({
@@ -219,62 +237,62 @@ export default class random extends Component {
                     <div className="random-left">
                         <input onChange={e => this.handleChange("characterName", e.target.value)} className="random-inputs" type="text" placeholder="Name" value={this.state.characterName} />
                         <select value={this.state.playerClass} onChange={e => this.handleChange("playerClass", e.target.value)} className="random-inputs" name="Class" id="Class">
-                            <option value="0">Class</option>
-                            <option value="1">Barbarian</option>
-                            <option value="2">Bard</option>
-                            <option value="3">Cleric</option>
-                            <option value="4">Druid</option>
-                            <option value="5">Fighter</option>
-                            <option value="6">Monk</option>
-                            <option value="7">Paladin</option>
-                            <option value="8">Ranger</option>
-                            <option value="9">Rogue</option>
-                            <option value="10">Sorcerer</option>
-                            <option value="11">Warlock</option>
-                            <option value="12">Wizard</option>
+                            <option value={0}>Class</option>
+                            <option value={1}>Barbarian</option>
+                            <option value={2}>Bard</option>
+                            <option value={3}>Cleric</option>
+                            <option value={4}>Druid</option>
+                            <option value={5}>Fighter</option>
+                            <option value={6}>Monk</option>
+                            <option value={7}>Paladin</option>
+                            <option value={8}>Ranger</option>
+                            <option value={9}>Rogue</option>
+                            <option value={10}>Sorcerer</option>
+                            <option value={11}>Warlock</option>
+                            <option value={12}>Wizard</option>
                         </select>
                         <select value={this.state.playerRace} onChange={e => this.handleChange("playerRace", e.target.value)} className="random-inputs" name="Race" id="Race">
-                            <option value="0">Race</option>
-                            <option value="1">Dwarf</option>
-                            <option value="2">Elf</option>
-                            <option value="3">Halfing</option>
-                            <option value="4">Human</option>
-                            <option value="5">Dragonborn</option>
-                            <option value="6">Gnome</option>
-                            <option value="7">Half-Elf</option>
-                            <option value="8">Half-Orc</option>
-                            <option value="9">Tiefling</option>
+                            <option value={0}>Race</option>
+                            <option value={1}>Dwarf</option>
+                            <option value={2}>Elf</option>
+                            <option value={3}>Halfing</option>
+                            <option value={4}>Human</option>
+                            <option value={5}>Dragonborn</option>
+                            <option value={6}>Gnome</option>
+                            <option value={7}>Half-Elf</option>
+                            <option value={8}>Half-Orc</option>
+                            <option value={9}>Tiefling</option>
                         </select>
                     </div>
                     <div className="random-right">
                         <input onChange={e => this.handleChange("playerName", e.target.value)} className="random-inputs" type="text" placeholder="Player Name" value={this.state.playerName} />
                         <select value={this.state.background} onChange={e => this.handleChange("background", e.target.value)} className="random-inputs" name="Background" id="Background">
-                            <option value="0">Background</option>
-                            <option value="1">Acoylte</option>
-                            <option value="2">Charlatan</option>
-                            <option value="3">Criminal / Spy</option>
-                            <option value="4">Entertainer</option>
-                            <option value="5">Folk Hero</option>
-                            <option value="6">Guild Artisan</option>
-                            <option value="7">Hermit</option>
-                            <option value="8">Noble</option>
-                            <option value="9">Outlander</option>
-                            <option value="10">Sage</option>
-                            <option value="11">Sailor</option>
-                            <option value="12">Soldier</option>
-                            <option value="13">Urchin</option>
+                            <option value={0}>Background</option>
+                            <option value={1}>Acoylte</option>
+                            <option value={2}>Charlatan</option>
+                            <option value={3}>Criminal / Spy</option>
+                            <option value={4}>Entertainer</option>
+                            <option value={5}>Folk Hero</option>
+                            <option value={6}>Guild Artisan</option>
+                            <option value={7}>Hermit</option>
+                            <option value={8}>Noble</option>
+                            <option value={9}>Outlander</option>
+                            <option value={10}>Sage</option>
+                            <option value={11}>Sailor</option>
+                            <option value={12}>Soldier</option>
+                            <option value={13}>Urchin</option>
                         </select>
                         <select value={this.state.alignment} onChange={e => this.handleChange("alignment", e.target.value)} className="random-inputs" name="Alignment" id="Alignment">
-                            <option value="0">Alignment</option>
-                            <option value="1">Lawful Good</option>
-                            <option value="2">Neutral Good</option>
-                            <option value="3">Chaotic Good</option>
-                            <option value="4">Lawful Neutral</option>
-                            <option value="5">Neutral</option>
-                            <option value="6">Chaotic Neutral</option>
-                            <option value="7">Lawful Evil</option>
-                            <option value="8">Neutral Evil</option>
-                            <option value="9">Chaotic Evil</option>
+                            <option value={0}>Alignment</option>
+                            <option value={1}>Lawful Good</option>
+                            <option value={2}>Neutral Good</option>
+                            <option value={3}>Chaotic Good</option>
+                            <option value={4}>Lawful Neutral</option>
+                            <option value={5}>Neutral</option>
+                            <option value={6}>Chaotic Neutral</option>
+                            <option value={7}>Lawful Evil</option>
+                            <option value={8}>Neutral Evil</option>
+                            <option value={9}>Chaotic Evil</option>
                         </select>
                     </div>
                 </div>
