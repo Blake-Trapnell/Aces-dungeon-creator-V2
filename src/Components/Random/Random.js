@@ -1,8 +1,10 @@
 import React, { Component } from "react"
 import "./Random.css"
 import Axios from "axios"
+import { setSheet} from "../../ducks/reducer"
+import { connect } from "react-redux"
 
-export default class random extends Component {
+class random extends Component {
     state = {
         displayCharacter: false,
         playerClass: 0,
@@ -36,12 +38,11 @@ export default class random extends Component {
         surv: false,
         Armor: 0,
         speed: 0,
-        size: 'medium',
+        size: '',
         hitDie: 0,
         savingThrows: {},
         armorProf: [],
         weaponProf: []
-
     }
     
     easy = async () => {
@@ -229,6 +230,11 @@ export default class random extends Component {
         console.log(this.state)
     }
 
+    preview = () => {
+        this.props.setSheet(this.state)
+        this.props.history.push('/preview')
+    }
+
     render() {
         console.log(this.state)
         return (
@@ -253,15 +259,20 @@ export default class random extends Component {
                         </select>
                         <select value={this.state.playerRace} onChange={e => this.handleChange("playerRace", e.target.value)} className="random-inputs" name="Race" id="Race">
                             <option value={0}>Race</option>
-                            <option value={1}>Dwarf</option>
-                            <option value={2}>Elf</option>
-                            <option value={3}>Halfing</option>
-                            <option value={4}>Human</option>
-                            <option value={5}>Dragonborn</option>
-                            <option value={6}>Gnome</option>
-                            <option value={7}>Half-Elf</option>
-                            <option value={8}>Half-Orc</option>
-                            <option value={9}>Tiefling</option>
+                            <option value={{race: 1, subrace: 1}}>Hill Dwarf</option>
+                            <option value={{race: 1, subrace: 2}}>Mountain Dwarf</option>
+                            <option value={{race: 2, subrace: 1}}>High Elf</option>
+                            <option value={{race: 2, subrace: 2}}>Wood Elf</option>
+                            <option value={{race: 2, subrace: 3}}>Drow</option>
+                            <option value={{race: 3, subrace: 1}}>Light-foot Halfing</option>
+                            <option value={{race: 3, subrace: 1}}>Stout Halfing</option>
+                            <option value={{race: 4, subrace: 0}}>Human</option>
+                            <option value={{race: 5, subrace: 0}}>Dragonborn</option>
+                            <option value={{race: 6, subrace: 1}}>Forest Gnome</option>
+                            <option value={{race: 6, subrace: 2}}>Rock Gnome</option>
+                            <option value={{race: 7, subrace: 0}}>Half-Elf</option>
+                            <option value={{race: 8, subrace: 0}}>Half-Orc</option>
+                            <option value={{race: 9, subrace: 0}}>Tiefling</option>
                         </select>
                     </div>
                     <div className="random-right">
@@ -310,7 +321,7 @@ export default class random extends Component {
                 <div>
                 <h1>{this.state.characterName}</h1> 
                 <h1>str:{this.state.str} dex:{this.state.dex} wis:{this.state.wis} int:{this.state.int} con: {this.state.con} cha: {this.state.cha}</h1>
-
+                    <button onClick={()=>this.preview()}>Preview</button>
                 </div>
                 
                 : null }
@@ -319,3 +330,5 @@ export default class random extends Component {
     }
 
 }
+
+export default connect(null, {setSheet})(random);

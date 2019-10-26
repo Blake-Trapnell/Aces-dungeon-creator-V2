@@ -1,0 +1,60 @@
+.preview-outer {
+    height: 1000px;
+    width: 600px;
+    background-color: whitesmoke;
+}
+
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 800px;
+    width: 600px;
+    background-image: url("../../pics/CharacterSheet.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.sheet-outer {
+    height: 900px;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sheet-header {
+    height: 115px;
+    width: Calc(50px - 2);
+    border: 1px solid black;
+}
+
+.sheet-mainbody {
+    height: 650px;
+    width: Calc(600px - 2);
+    border: 1px solid goldenrod;
+    display: flex;
+}
+
+.sheet-left-column {
+    height: 650px;
+    width: 200px;
+    border: 1px solid violet;
+}
+
+.sheet-middle-column {
+    height: 650px;
+    width: 200px;
+    border: 1px solid violet;
+}
+
+.sheet-right-column {
+    height: 650px;
+    width: 200px;
+    border: 1px solid violet;
+}
+
+.footer {
+    height: 100px;
+    width: 600px;
+    border: 1px solid teal;
+}
