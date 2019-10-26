@@ -209,7 +209,7 @@ export default class random extends Component {
         }
 
         //Get Equipment for the Character
-        let equipment = Axios.get(`/api/equipment/${playerClass}`)
+        let equipment = await Axios.get(`/api/equipment/${playerClass}`)
         equipment = equipment.data
 
 
@@ -217,7 +217,7 @@ export default class random extends Component {
         this.setState({
             characterName, playerClass, playerRace, background, alignment,
             str, wis, int, dex, cha, con, [backgroundSkills[0].skill]: true, [backgroundSkills[1].skill]: true, racialTraits, speed, size, 
-            hitDie, weaponProf, armorProf, savingThrows, displayCharacter
+            hitDie, weaponProf, armorProf, savingThrows, displayCharacter, equipment
         })
     }
 
