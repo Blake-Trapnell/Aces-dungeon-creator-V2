@@ -1,4 +1,5 @@
 .preview-outer {
+    position: relative;
     height: 1000px;
     width: 600px;
     background-color: whitesmoke;
@@ -24,7 +25,25 @@
 
 .sheet-header {
     height: 115px;
-    width: Calc(50px - 2);
+    width: 558px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+    z-index: 1;
+}
+
+.sheet-charactername {
+    height: 95px;
+    width: 190px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.sheet-raceclass {
+    height: 100px;
+    width: 355px;
     border: 1px solid black;
 }
 

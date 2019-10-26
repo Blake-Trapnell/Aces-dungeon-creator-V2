@@ -16,7 +16,11 @@ class Preview extends Component {
             <div className="background"></div>
         <div className="sheet-outer">
             <div className="sheet-header">
-                {this.props.characterName ? <h1>{this.props.characterName}</h1> : null}
+                <div className="sheet-charactername">
+                {this.props.characterName ? <h1>{this.props.characterName}</h1> : <h1>testing</h1> }
+
+                </div>
+                <div className="sheet-raceclass"></div>
             </div>
             <div className="sheet-mainbody">
                 <div className="sheet-left-column"></div>
