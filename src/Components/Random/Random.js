@@ -42,7 +42,8 @@ class random extends Component {
         hitDie: 0,
         savingThrows: {},
         armorProf: [],
-        weaponProf: []
+        weaponProf: [],
+        profeciency: 2
     }
     
     easy = async () => {
@@ -135,6 +136,7 @@ class random extends Component {
 
         // if playerRace was unselected, assign Race based off
         // of the highest value stat that the Race adds bonuses to.
+        console.log("playerRace prior adjustment", playerRace)
         if (playerRace === 0) {
             switch (val) {
                 case 0: rando = (Math.random() * 40)
@@ -184,6 +186,7 @@ class random extends Component {
         backgroundSkills = backgroundSkills.data
 
         //Retrieve a list of the users Traits for the characters race.
+        console.log("race after adjustment", playerRace)
         let racialTraits = await Axios.post(`/api/racialtraits`, { playerRace })
         racialTraits = racialTraits.data
 
@@ -191,7 +194,6 @@ class random extends Component {
         // Selects Skills that are available to the player based off the class they chose/were assigned
         let classSkills = await Axios.get(`api/classskills/${playerClass}/${playerRace}`)
         classSkills = classSkills.data
-        console.log(classSkills)
         hitDie = classSkills.hitDie
         savingThrows = classSkills.savingThrows
         armorProf = classSkills.armorProf
@@ -202,7 +204,6 @@ class random extends Component {
             while(checked.includes(rando)) {
              rando = (Math.floor((Math.random() * classSkills.skills.length )))
             }
-            console.log(classSkills.points)
                 checked[i] = rando
                 this.setState({
                     [classSkills.skills[rando].skill]: true
@@ -212,6 +213,8 @@ class random extends Component {
         //Get Equipment for the Character
         let equipment = await Axios.get(`/api/equipment/${playerClass}`)
         equipment = equipment.data
+
+
 
 
         //set state to new values that the function ran to be added to our character sheet
@@ -227,12 +230,97 @@ class random extends Component {
         this.setState({
             [key]: e
         })
-        console.log(this.state)
     }
 
     preview = () => {
-        this.props.setSheet(this.state)
-        this.props.history.push('/preview')
+        let {playerClass, playerRace, background, alignment} = this.state
+                // Set class, race, background, and alignment to be the string variables associated with their numbers
+                switch(playerClass) {
+                    case 1: playerClass = "Barbarian";  break;
+                    case 2: playerClass = "Bard"; break;
+                    case 3: playerClass = "Cleric"; break;
+                    case 4: playerClass = "Druid"; break;
+                    case 5: playerClass = "Fighter"; break;
+                    case 6: playerClass = "Monk"; break;
+                    case 7: playerClass = "Paladin"; break;
+                    case 8: playerClass = "Ranger"; break;
+                    case 9: playerClass = "Rogue"; break;
+                    case 10: playerClass = "Sorcerer"; break;
+                    case 11: playerClass = "Warlock"; break;
+                    case 12: playerClass = "Wizard"; break;
+                    default : playerClass = "error"
+                }
+                console.log("race", playerRace, "subrace", playerRace)
+                switch(playerRace.race) {
+                     case 1:
+                         switch(playerRace.subrace) {
+                             case 1: playerRace = "Hill Dwarf"; break;
+                             case 2: playerRace = "Mountain Dwarf"; break;
+                             default: playerRace = "error"
+                         }
+                         break;
+                     case 2:
+                         switch(playerRace.subrace) {
+                             case 1: playerRace = "High Elf"; break;
+                             case 2: playerRace = "Wood Elf"; break;
+                             case 3: playerRace = "Drow"; break;
+                             default: playerRace = "error"
+                         }
+                         break;
+                     case 3:
+                         switch(playerRace.subrace) {
+                             case 1: playerRace = "Light-foot Halfling"; break;
+                             case 2: playerRace = "Stout Halfling"; break;
+                             default: playerRace = "error";
+                         }
+                         break;
+                     case 4: playerRace = "Human"; console.log('hit'); break; 
+                     case 5: playerRace = "Dragonborn"; break;
+                     case 6:
+                         switch(playerRace.subrace) {
+                             case 1: playerRace = "Forest Gnome"; break;
+                             case 2: playerRace = "Rock Gnome"; break;
+                             default: playerRace = "error";
+                         }
+                         break;
+                     case 7: playerRace = "Half-Elf"; break;
+                     case 8: playerRace = "Half-Orc"; break;
+                     case 9: playerRace = "Teifling"; break;
+                     default: playerRace = "error"
+                }
+                switch(background) {
+                     case 1: background = "Acoylte"; break
+                     case 2: background = "Charlatan"; break
+                     case 3: background = "Criminal"; break
+                     case 4: background = "Entertainer"; break
+                     case 5: background = "Folk Hero"; break
+                     case 6: background = "Guild Artisan"; break
+                     case 7: background = "Hermit"; break
+                     case 8: background = "Noble"; break
+                     case 9: background = "Outlander"; break
+                     case 10: background = "Sage"; break
+                     case 11: background = "Sailor"; break
+                     case 12: background = "Soldier"; break
+                     case 13: background = "Urchin"; break
+                     default: background = "error"
+                }
+                switch(alignment) {
+                 case 1: alignment = "Lawful Good"; break
+                 case 2: alignment = "Neutral Good"; break
+                 case 3: alignment = "Chaotic Good"; break
+                 case 4: alignment = "Lawful Neutral"; break
+                 case 5: alignment = "Neutral"; break
+                 case 6: alignment = "Chaotic Neutral"; break
+                 case 7: alignment = "Lawful Evil"; break
+                 case 8: alignment = "Neutral Evil"; break
+                 case 9: alignment = "Chaotic Evil"; break
+                 default: alignment = "error"
+                }
+                this.setState({playerClass, playerRace, background, alignment}
+                ,()=> 
+                {this.props.setSheet(this.state)
+                 this.props.history.push('/preview')})
+
     }
 
     render() {
@@ -257,7 +345,7 @@ class random extends Component {
                             <option value={11}>Warlock</option>
                             <option value={12}>Wizard</option>
                         </select>
-                        <select value={this.state.playerRace} onChange={e => this.handleChange("playerRace", e.target.value)} className="random-inputs" name="Race" id="Race">
+                        <select value = {this.state.playerRace} onChange={e => this.handleChange("playerRace", e.target.value)} className="random-inputs" name="Race" id="Race">
                             <option value={0}>Race</option>
                             <option value={{race: 1, subrace: 1}}>Hill Dwarf</option>
                             <option value={{race: 1, subrace: 2}}>Mountain Dwarf</option>
@@ -265,7 +353,7 @@ class random extends Component {
                             <option value={{race: 2, subrace: 2}}>Wood Elf</option>
                             <option value={{race: 2, subrace: 3}}>Drow</option>
                             <option value={{race: 3, subrace: 1}}>Light-foot Halfing</option>
-                            <option value={{race: 3, subrace: 1}}>Stout Halfing</option>
+                            <option value={{race: 3, subrace: 2}}>Stout Halfing</option>
                             <option value={{race: 4, subrace: 0}}>Human</option>
                             <option value={{race: 5, subrace: 0}}>Dragonborn</option>
                             <option value={{race: 6, subrace: 1}}>Forest Gnome</option>

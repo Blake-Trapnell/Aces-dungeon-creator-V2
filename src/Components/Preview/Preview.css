@@ -26,25 +26,57 @@
 .sheet-header {
     height: 115px;
     width: 558px;
-    border: 1px solid black;
     display: flex;
     justify-content: space-between;
     z-index: 1;
 }
 
 .sheet-charactername {
-    height: 95px;
-    width: 190px;
-    border: 1px solid black;
+    height: 98px;
+    width: 184px;
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
+    font-size: 1.2rem;
+    overflow: hidden;
 }
 
 .sheet-raceclass {
     height: 100px;
-    width: 355px;
-    border: 1px solid black;
+    width: 365px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.sheet-raceclass1 {
+    height: 100%;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    font-size: 1rem;
+}
+
+.sheet-raceclass-top {
+    height: 20%;
+    width: 100%;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex-wrap: nowrap;
+    overflow: hidden;
+}
+
+.sheet-raceclass-bottom {
+    height: 20%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin-bottom: 10px;
+    flex-wrap: nowrap;
+    overflow: hidden;
 }
 
 .sheet-mainbody {
@@ -57,7 +89,119 @@
 .sheet-left-column {
     height: 650px;
     width: 200px;
-    border: 1px solid violet;
+}
+
+.sheet-stats-container {
+    height: 70%;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.sheet-stats-list {
+    height: 91%;
+    width: 30%;
+    margin-top: 10%;
+    margin-right: 2%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sheet-stats {
+    z-index: 1;
+    height: 16%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.stat {
+    margin-bottom: 10px;
+}
+
+.sheet-skills {
+    height: 100%;
+    width: 55%;
+}
+
+.sheet-inspiration {
+    height: 8%;
+    width: 100%;
+    background-color: rgba(218, 165, 32, 0.349);
+}
+
+.sheet-prof-bonus {
+    height: 9%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    top: 1px;
+    left: 8px;
+    font-weight: bold;
+    font-size: .8rem;
+}
+
+.sheet-saving-throws-container {
+    height: 18%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-top: 5%;
+    font-size: .7rem;
+}
+
+.sheet-saving-throws {
+    z-index: 1;
+    height: 13%;
+    width: 50%;
+    margin-left: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.sheet-saving-true {
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    background-color: rgb(0, 0, 0);
+    border: 1px solid black;
+    margin-right: 8px;
+}
+
+.sheet-saving-false {
+    height: 7px;
+    width: 7px;
+    border-radius: 50%;
+    border: 1px solid black;
+    background-color: whitesmoke;
+    margin-right: 10px;
+}
+
+.sheet-skills-container {
+    margin-top: 15%;
+    height: 59%;
+    width: 100%;
+    background-color: rgba(218, 32, 32, 0.349);
+}
+
+.sheet-passive-perc {
+    height: 5%;
+    width: 100%;
+    background-color: rgba(137, 130, 238, 0.24);
+}
+
+.sheet-otherprofs {
+    height: 25%;
+    width: 100%;
+    background-color: rgba(130, 238, 130, 0.24);
 }
 
 .sheet-middle-column {

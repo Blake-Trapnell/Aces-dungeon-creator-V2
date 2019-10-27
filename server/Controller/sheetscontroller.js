@@ -2,7 +2,7 @@ const Axios = require('axios')
 
 module.exports = {
     randomName: async (req, res) => {
-
+        console.log("name")
         let rando = Math.ceil((Math.random() * 30))
         const db = req.app.get('db')
         let first = await db.Sheets.get_random_first([rando])
@@ -14,7 +14,7 @@ module.exports = {
         res.status(200).send(name)
     },
     backgroundSkills: async (req, res) => {
-
+        console.log('background skills')
         const db = req.app.get('db')
         let backgroundNumber = +req.params.background
         let background = ""
@@ -52,7 +52,7 @@ module.exports = {
         res.status(200).send(skills)
     },
     racialTraits: async (req, res) => {
-
+        console.log('racial traits')
         const db = req.app.get('db')
         const race = req.body.playerRace.race
         const sub = req.body.playerRace.subrace
@@ -62,7 +62,7 @@ module.exports = {
         res.status(200).send(allTraits)
     },
     classSkills: async (req, res) => {
-
+        console.log('class skills')
         const db = req.app.get('db')
         const val = +req.params.playerClass
         let points = null
@@ -95,8 +95,9 @@ module.exports = {
         res.status(200).send({ skills, points, hitDie, savingThrows, armorProf, weaponProf })
     },
     classEquipment: async (req,res) => {
+        console.log('class equipment')
         let playerClass = +req.params.playerClass
-
+        console.log(playerClass)
         let equipment = await Axios.get(`http://www.dnd5eapi.co/api/startingequipment/${playerClass}`)
         equipment = equipment.data
 
