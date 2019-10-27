@@ -55,15 +55,15 @@ class Preview extends Component {
                                     <div className="sheet-stats-list">
                                         <div className="sheet-stats">
                                             <h1 className="stat">{this.props.str}</h1>
-                                            <h4 style={{ marginBottom: "4px" }}>{Math.floor((this.props.str - 10) / 2)}</h4>
+                                            <h4 style={{ marginBottom: "6px" }}>{Math.floor((this.props.str - 10) / 2)}</h4>
                                         </div>
                                         <div className="sheet-stats">
                                             <h1 className="stat">{this.props.dex}</h1>
-                                            <h4 style={{ marginBottom: "2px" }}>{Math.floor((this.props.dex - 10) / 2)}</h4>
+                                            <h4 style={{ marginBottom: "5px" }}>{Math.floor((this.props.dex - 10) / 2)}</h4>
                                         </div>
                                         <div className="sheet-stats">
                                             <h1 className="stat">{this.props.con}</h1>
-                                            <h4>{Math.floor((this.props.con - 10) / 2)}</h4>
+                                            <h4 style={{ marginBottom: "3px" }}>{Math.floor((this.props.con - 10) / 2)}</h4>
                                         </div>
                                         <div className="sheet-stats">
                                             <h1 className="stat">{this.props.int}</h1>
@@ -81,7 +81,7 @@ class Preview extends Component {
                                     <div className="sheet-skills">
                                         <div className="sheet-inspiration"></div>
                                         <div className="sheet-prof-bonus">
-                                            <h1>+ {this.props.profeciency}</h1>
+                                            <h1>+{this.props.profeciency}</h1>
                                         </div>
                                         <div className="sheet-saving-throws-container">
                                             <div className="sheet-saving-throws">
@@ -95,7 +95,7 @@ class Preview extends Component {
                                                 </div>
                                             </div>
                                             <div className="sheet-saving-throws">
-                                            {this.props.savingThrows.includes(2) ?
+                                                {this.props.savingThrows.includes(2) ?
                                                     <div className="sheet-saving-true"></div>
                                                     :
                                                     <div className="sheet-saving-false"></div>}
@@ -105,7 +105,7 @@ class Preview extends Component {
                                                 </div>
                                             </div>
                                             <div className="sheet-saving-throws">
-                                            {this.props.savingThrows.includes(5) ?
+                                                {this.props.savingThrows.includes(5) ?
                                                     <div className="sheet-saving-true"></div>
                                                     :
                                                     <div className="sheet-saving-false"></div>}
@@ -115,7 +115,7 @@ class Preview extends Component {
                                                 </div>
                                             </div>
                                             <div className="sheet-saving-throws">
-                                            {this.props.savingThrows.includes(4) ?
+                                                {this.props.savingThrows.includes(4) ?
                                                     <div className="sheet-saving-true"></div>
                                                     :
                                                     <div className="sheet-saving-false"></div>}
@@ -125,7 +125,7 @@ class Preview extends Component {
                                                 </div>
                                             </div>
                                             <div className="sheet-saving-throws">
-                                            {this.props.savingThrows.includes(3) ?
+                                                {this.props.savingThrows.includes(3) ?
                                                     <div className="sheet-saving-true"></div>
                                                     :
                                                     <div className="sheet-saving-false"></div>}
@@ -135,7 +135,7 @@ class Preview extends Component {
                                                 </div>
                                             </div>
                                             <div className="sheet-saving-throws">
-                                            {this.props.savingThrows.includes(6) ?
+                                                {this.props.savingThrows.includes(6) ?
                                                     <div className="sheet-saving-true"></div>
                                                     :
                                                     <div className="sheet-saving-false"></div>}
@@ -145,13 +145,179 @@ class Preview extends Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="sheet-skills-container"></div>
+                                        <div className="sheet-skills-container">
+                                            <div className="sheet-skills-display">
+                                                {this.props.acro === true ?
+                                                    <div className="sheet-skills-true"></div> :
+                                                    <div className="sheet-skills-false"></div>}
+                                                {this.props.acro === false ?
+                                                    <h1>{Math.floor((this.props.dex - 10) / 2)}</h1> :
+                                                    <h1>{Math.floor((this.props.dex - 10) / 2) + this.props.profeciency}</h1>}
+                                            </div>
+                                            <div className="sheet-skills-display">
+                                                {this.props.anim === true ?
+                                                    <div className="sheet-skills-true"></div> :
+                                                    <div className="sheet-skills-false"></div>}
+                                                {this.props.anim === false ?
+                                                    <h1>{Math.floor((this.props.wis - 10) / 2)}</h1> :
+                                                    <h1>{Math.floor((this.props.wis - 10) / 2) + this.props.profeciency}</h1>}
+                                            </div>
+                                            <div className="sheet-skills-display">
+                                                {this.props.arca === true ?
+                                                    <div className="sheet-skills-true"></div> :
+                                                    <div className="sheet-skills-false"></div>}
+                                                {this.props.arca === false ?
+                                                    <h1>{Math.floor((this.props.int - 10) / 2)}</h1> :
+                                                    <h1>{Math.floor((this.props.int - 10) / 2) + this.props.profeciency}</h1>}
+                                            </div>
+                                            <div className="sheet-skills-display">
+                                                {this.props.athl === true ?
+                                                    <div className="sheet-skills-true"></div> :
+                                                    <div className="sheet-skills-false"></div>}
+                                                {this.props.athl === false ?
+                                                    <h1>{Math.floor((this.props.str - 10) / 2)}</h1> :
+                                                    <h1>{Math.floor((this.props.str - 10) / 2) + this.props.profeciency}</h1>}
+                                            </div>
+                                            <div className="sheet-skills-display">
+                                                {this.props.dece === true ?
+                                                    <div className="sheet-skills-true"></div> :
+                                                    <div className="sheet-skills-false"></div>}
+                                                {this.props.dece === false ?
+                                                    <h1>{Math.floor((this.props.cha - 10) / 2)}</h1> :
+                                                    <h1>{Math.floor((this.props.cha - 10) / 2) + this.props.profeciency}</h1>}
+                                            </div>
+                                            <div className="sheet-skills-display">
+                                                {this.props.hist === true ?
+                                                    <div className="sheet-skills-true"></div> :
+                                                    <div className="sheet-skills-false"></div>}
+                                                {this.props.hist === false ?
+                                                    <h1>{Math.floor((this.props.int - 10) / 2)}</h1> :
+                                                    <h1>{Math.floor((this.props.int - 10) / 2) + this.props.profeciency}</h1>}
+                                            </div>
+                                            <div className="sheet-skills-display">
+                                                {this.props.insg === true ?
+                                                    <div className="sheet-skills-true"></div> :
+                                                    <div className="sheet-skills-false"></div>}
+                                                {this.props.insg === false ?
+                                                    <h1>{Math.floor((this.props.wis - 10) / 2)}</h1> :
+                                                    <h1>{Math.floor((this.props.wis - 10) / 2) + this.props.profeciency}</h1>}
+                                            </div>
+                                            <div className="sheet-skills-display">
+                                                {this.props.intim === true ?
+                                                    <div className="sheet-skills-true"></div> :
+                                                    <div className="sheet-skills-false"></div>}
+                                                {this.props.intim === false ?
+                                                    <h1>{Math.floor((this.props.cha - 10) / 2)}</h1>
+                                                    : <h1>{Math.floor((this.props.cha - 10) / 2) + this.props.profeciency}</h1>
+                                                }                        </div>
+                                            <div className="sheet-skills-display">
+                                                {this.props.inves === true ?
+                                                    <div className="sheet-skills-true"></div> :
+                                                    <div className="sheet-skills-false"></div>}
+                                                {this.props.inves === false ?
+                                                    <h1>{Math.floor((this.props.int - 10) / 2)}</h1>
+                                                    : <h1>{Math.floor((this.props.int - 10) / 2) + this.props.profeciency}</h1>
+                                                }                        </div>
+                                            <div className="sheet-skills-display">
+                                                {this.props.medi === true ?
+                                                    <div className="sheet-skills-true"></div> :
+                                                    <div className="sheet-skills-false"></div>}
+                                                {this.props.medi === false ?
+                                                    <h1>{Math.floor((this.props.wis - 10) / 2)}</h1> :
+                                                    <h1>{Math.floor((this.props.wis - 10) / 2) + this.props.profeciency}</h1>}
+                                            </div>
+                                            <div className="sheet-skills-display">
+                                                {this.props.natu === true ?
+                                                    <div className="sheet-skills-true"></div> :
+                                                    <div className="sheet-skills-false"></div>}
+                                                {this.props.natu === false ?
+                                                    <h1>{Math.floor((this.props.int - 10) / 2)}</h1> :
+                                                    <h1>{Math.floor((this.props.int - 10) / 2) + this.props.profeciency}</h1>}
+                                            </div>
+                                            <div className="sheet-skills-display">
+                                                {this.props.perc === true ?
+                                                    <div className="sheet-skills-true"></div> :
+                                                    <div className="sheet-skills-false"></div>}
+                                                {this.props.perc === false ?
+                                                    <h1>{Math.floor((this.props.wis - 10) / 2)}</h1> :
+                                                    <h1>{Math.floor((this.props.wis - 10) / 2) + this.props.profeciency}</h1>}
+                                            </div>
+                                            <div className="sheet-skills-display">
+                                                {this.props.perf === true ?
+                                                    <div className="sheet-skills-true"></div> :
+                                                    <div className="sheet-skills-false"></div>}
+                                                {this.props.perf === false ?
+                                                    <h1>{Math.floor((this.props.cha - 10) / 2)}</h1> :
+                                                    <h1>{Math.floor((this.props.cha - 10) / 2) + this.props.profeciency}</h1>}
+                                            </div>
+                                            <div className="sheet-skills-display">
+                                                {this.props.pers === true ?
+                                                    <div className="sheet-skills-true"></div> :
+                                                    <div className="sheet-skills-false"></div>}
+                                                {this.props.pers === false ?
+                                                    <h1>{Math.floor((this.props.cha - 10) / 2)}</h1> :
+                                                    <h1>{Math.floor((this.props.cha - 10) / 2) + this.props.profeciency}</h1>}
+                                            </div>
+                                            <div className="sheet-skills-display">
+                                                {this.props.reli === true ?
+                                                    <div className="sheet-skills-true"></div> :
+                                                    <div className="sheet-skills-false"></div>}
+                                                {this.props.reli === false ?
+                                                    <h1>{Math.floor((this.props.int - 10) / 2)}</h1> :
+                                                    <h1>{Math.floor((this.props.int - 10) / 2) + this.props.profeciency}</h1>}
+                                            </div>
+                                            <div className="sheet-skills-display">
+                                                {this.props.slei === true ?
+                                                    <div className="sheet-skills-true"></div> :
+                                                    <div className="sheet-skills-false"></div>}
+                                                {this.props.slei === false ?
+                                                    <h1>{Math.floor((this.props.dex - 10) / 2)}</h1> :
+                                                    <h1>{Math.floor((this.props.dex - 10) / 2) + this.props.profeciency}</h1>}
+                                            </div>
+                                            <div className="sheet-skills-display">
+                                                {this.props.stea === true ?
+                                                    <div className="sheet-skills-true"></div> :
+                                                    <div className="sheet-skills-false"></div>}
+                                                {this.props.stea === false ?
+                                                    <h1>{Math.floor((this.props.dex - 10) / 2)}</h1> :
+                                                    <h1>{Math.floor((this.props.dex - 10) / 2) + this.props.profeciency}</h1>}
+                                            </div>
+                                            <div className="sheet-skills-display">
+                                                {this.props.surv === true ?
+                                                    <div className="sheet-skills-true"></div> :
+                                                    <div className="sheet-skills-false"></div>}
+                                                {this.props.surv === false ?
+                                                    <h1>{Math.floor((this.props.wis - 10) / 2)}</h1> :
+                                                    <h1>{Math.floor((this.props.wis - 10) / 2) + this.props.profeciency}</h1>}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="sheet-passive-perc"></div>
-                                <div className="sheet-otherprofs"></div>
+                                <div className="sheet-passive-perc">
+                                    {this.props.perc === true ?
+                                    <h1>{Math.floor((this.props.wis - 10) / 2) + 10 + this.props.profeciency}</h1> :
+                                    <h1>{Math.floor((this.props.wis - 10) / 2) + 10}</h1> }
+                                </div>
+                                <div className="sheet-otherprofs">
+                                        <h1>Weapon Profeciencies</h1>
+                                        {this.props.weaponProf.map((el,i)=> {
+                                            return (<div key = {el.i}>
+                                                <h6 style={{fontSize: '.8rem'}}>•{el}</h6>
+                                            </div>)
+                                        })}
+                                        <h1>Armor Profeciencies</h1>
+                                        {this.props.armorProf.map((el,i)=> {
+                                            return (<div key = {el.i}>
+                                                <h6 style={{fontSize: '.8rem'}}>•{el}</h6>
+                                            </div>)
+                                        })}
+                                        
+
+                                </div>
                             </div>
-                            <div className="sheet-middle-column"></div>
+                            <div className="sheet-middle-column">
+                                
+                            </div>
                             <div className="sheet-right-column"></div>
                         </div>
                         <div className="footer"></div>
@@ -168,12 +334,12 @@ function mapStateToProps(state) {
     const { playerClass, playerRace, characterName, playerName, alignment, background,
         str, dex, wis, int, con, cha, acro, anim, arca, athl, dece, hist, insg, intm, medi,
         natu, perc, perf, pers, reli, slei, stea, surv, armor, speed, size, hitDie, savingThrows,
-        armorProf, weaponProf, profeciency } = state
+        armorProf, weaponProf, profeciency, racialTraits } = state
     return {
         playerClass, playerRace, characterName, playerName, alignment, background,
         str, dex, wis, int, con, cha, acro, anim, arca, athl, dece, hist, insg, intm, medi,
         natu, perc, perf, pers, reli, slei, stea, surv, armor, speed, size, hitDie, savingThrows,
-        armorProf, weaponProf, profeciency
+        armorProf, weaponProf, profeciency, racialTraits
     }
 }
 export default connect(mapStateToProps, { setSheet })(Preview);
