@@ -22,18 +22,18 @@ class Preview extends Component {
                             </div>
                             <div className="sheet-raceclass">
                                 <div className="sheet-raceclass1">
-                                    <div className="sheet-raceclass-top">
+                                    <div style={{justifyContent: "flex-start", marginLeft: "90px"}} className="sheet-raceclass-top">
                                         <h1>{this.props.playerClass}</h1>
                                     </div>
-                                    <div className="sheet-raceclass-bottom">
+                                    <div style={{justifyContent: "flex-start", marginLeft: "90px"}} className="sheet-raceclass-bottom">
                                         <h1>{this.props.playerRace}</h1>
                                     </div>
                                 </div>
                                 <div className="sheet-raceclass1">
-                                    <div className="sheet-raceclass-top">
+                                    <div style={{marginLeft: "20px"}} className="sheet-raceclass-top">
                                         <h1>{this.props.alignment}</h1>
                                     </div>
-                                    <div className="sheet-raceclass-bottom">
+                                    <div style={{marginLeft: "20px"}} className="sheet-raceclass-bottom">
                                         <h1>{this.props.background}</h1>
                                     </div>
                                 </div>
@@ -300,14 +300,14 @@ class Preview extends Component {
                                 </div>
                                 <div className="sheet-otherprofs">
                                         <h1>Weapon Profeciencies</h1>
-                                        {this.props.weaponProf.map((el,i)=> {
-                                            return (<div key = {el.i}>
+                                        {this.props.weaponProf.map((el,i)=> (
+                                            <div key = {`weapon ${i}`}>
                                                 <h6 style={{fontSize: '.8rem'}}>•{el}</h6>
-                                            </div>)
-                                        })}
+                                            </div>
+                                        ))}
                                         <h1>Armor Profeciencies</h1>
                                         {this.props.armorProf.map((el,i)=> {
-                                            return (<div key = {el.i}>
+                                            return (<div key = {`armor ${i}`}>
                                                 <h6 style={{fontSize: '.8rem'}}>•{el}</h6>
                                             </div>)
                                         })}
@@ -316,9 +316,54 @@ class Preview extends Component {
                                 </div>
                             </div>
                             <div className="sheet-middle-column">
-                                
+                                <div className="sheet-middle-top">
+                                    <div className="sheet-middle-ais">
+                                        <div className="sheet-middle-ac">
+                                            <h1>{Math.floor((this.props.dex -10) / 2) + 10}</h1>
+                                        </div>
+                                        <div className="sheet-middle-initative">
+                                        <h1>{Math.floor((this.props.dex -10) / 2) + 10}</h1>
+                                        </div>
+                                        <div className="sheet-middle-speed">
+                                            <h1>{this.props.speed}</h1>
+                                        </div>
+                                    </div>
+                                    <div className="sheet-middle-hpm">
+                                        <div className="sheet-maximum">
+                                            <h1>{Math.floor((this.props.con - 10) / 2) + this.props.hitDie}</h1>
+                                        </div>
+                                        <div className="sheet-current">
+                                        <h1>{Math.floor((this.props.con - 10) / 2) + this.props.hitDie}</h1>
+                                        </div>
+                                    </div>
+                                    <div className="sheet-middle-hds">
+                                        <div className="sheet-middle-hitDie">
+                                            <h1>1D {this.props.hitDie}</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="sheet-middle">
+
+                                </div>
+                                <div className="sheet-middle-bot">
+                                    <div className="sheet-middle-equipment">
+                                        {this.props.equipment.map((el,i)=>{
+                                            return(
+                                                <div key = {`equipment ${i}`}>
+                                                    <h1>{el.name}, {el.quantity}</h1>
+                                                </div>
+                                            )
+                                        })}
+                                    </div>
+                                </div>
                             </div>
-                            <div className="sheet-right-column"></div>
+                            <div className="sheet-right-column">
+                                {this.props.racialTraits.map((el,i)=> (
+                                    <div key = {`Race Traits ${i}`}>
+                                        <h1> <span style={{fontSize: ".8rem", fontWeight: "bold"}}>{el.trait}:</span> <span style={{fontSize: ".8rem"}}> {el.trait_text} </span> </h1>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                         <div className="footer"></div>
                     </div>
@@ -334,12 +379,12 @@ function mapStateToProps(state) {
     const { playerClass, playerRace, characterName, playerName, alignment, background,
         str, dex, wis, int, con, cha, acro, anim, arca, athl, dece, hist, insg, intm, medi,
         natu, perc, perf, pers, reli, slei, stea, surv, armor, speed, size, hitDie, savingThrows,
-        armorProf, weaponProf, profeciency, racialTraits } = state
+        armorProf, weaponProf, profeciency, racialTraits, equipment } = state
     return {
         playerClass, playerRace, characterName, playerName, alignment, background,
         str, dex, wis, int, con, cha, acro, anim, arca, athl, dece, hist, insg, intm, medi,
         natu, perc, perf, pers, reli, slei, stea, surv, armor, speed, size, hitDie, savingThrows,
-        armorProf, weaponProf, profeciency, racialTraits
+        armorProf, weaponProf, profeciency, racialTraits, equipment
     }
 }
 export default connect(mapStateToProps, { setSheet })(Preview);

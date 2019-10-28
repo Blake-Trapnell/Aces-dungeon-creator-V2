@@ -46,12 +46,13 @@ class random extends Component {
         profeciency: 2
     }
     
-    easy = async () => {
+    easy = async (mode) => {
         // destructure state to be used in function
         let { characterName, playerClass, playerRace, background, alignment, str, dex, wis, int,
             con, cha, speed, size, hitDie, savingThrows, armorProf, weaponProf, displayCharacter} = this.state
         //Assign variables for later use in function
         let rando = 0
+        playerClass = +playerClass
 
 
         //Display users generated Character
@@ -60,8 +61,9 @@ class random extends Component {
 
         //Assign Name to character if not previously chosen
         if (characterName === ""){ 
-            characterName = await Axios.get('/api/names')}
-        characterName = characterName.data
+            characterName = await Axios.get('/api/names')
+            characterName = characterName.data
+        }
 
 
         // Resets in case user has already ran the function.
@@ -69,116 +71,273 @@ class random extends Component {
             str = 8; dex = 8; wis = 8; int = 8; con = 8; cha = 8}
 
         // Randomly Generated the players Str, Dex, Wis, Int, Con, and Charisma stats.
-        for (let i = 0; i < 32; i++) {
-            rando = Math.ceil(Math.random() * 60)
-            if (rando <= 10) str++
-            else if (rando <= 20) dex++
-            else if (rando <= 30) wis++
-            else if (rando <= 40) int++
-            else if (rando <= 50) con++
-            else if (rando <= 60) cha++
+        switch(mode) {
+            case 0: 
+            for (let i = 0; i < 32; i++) {
+                rando = Math.ceil(Math.random() * 60)
+                if (rando <= 10) str++
+                else if (rando <= 20) dex++
+                else if (rando <= 30) wis++
+                else if (rando <= 40) int++
+                else if (rando <= 50) con++
+                else if (rando <= 60) cha++
+            }
+            break;
+            case 1: 
+            for (let i = 0; i < 27; i++) {
+                rando = Math.ceil(Math.random() * 60)
+                if (rando <= 10) str++
+                else if (rando <= 20) dex++
+                else if (rando <= 30) wis++
+                else if (rando <= 40) int++
+                else if (rando <= 50) con++
+                else if (rando <= 60) cha++
+            }
+            break;
+            case 2: 
+            for (let i = 0; i < 23; i++) {
+                rando = Math.ceil(Math.random() * 60)
+                if (rando <= 10) str++
+                else if (rando <= 20) dex++
+                else if (rando <= 30) wis++
+                else if (rando <= 40) int++
+                else if (rando <= 50) con++
+                else if (rando <= 60) cha++
+            }
+            break;
+            case 3:
+            for (let i = 0; i < 20; i++) {
+                rando = Math.ceil(Math.random() * 60)
+                if (rando <= 10) str++
+                else if (rando <= 20) dex++
+                else if (rando <= 30) wis++
+                else if (rando <= 40) int++
+                else if (rando <= 50) con++
+                else if (rando <= 60) cha++
+            }
+            break;
+            default: alert('whoops an error occurred selecting stats')
         }
         //Assign background and Alignment if previously unselected
         if (background === 0) background = Math.ceil(Math.random() * 13)
         if (alignment === 0) alignment = Math.ceil(Math.random() * 9)
 
         // We Need the Highest stat in order to assign the best classes/races that the stat uses.
+        // and the Lowest stat for Mayhem Mode for the worst character
         //This allows the player to have a good character. and is only for the Easy and Normal buttons
         let stats = [str, dex, wis, int, con, cha]
         // highest = the highest of the stats that were randomly generated.
         // val = the position in the array so that we can assign a class based
         // off of that highest value 
-        var highest = 0
-        var val = null
+        let highest = 0
+        let lowest = 30
+        let val = null
+        let lowval = null
         for (let i = 0; i < 6; i++) {
             if (stats[i] > highest) {
                 highest = stats[i]
                 val = i
             }
+            if(stats[i] < lowest) {
+                lowest = stats[i]
+                lowval= i
+            }
         }
 
         // if playerClass was unselected, assign class based off
         // of the highest value stat that the class uses.
-        if (playerClass === 0) {
-            switch (val) {
-                case 0: rando = (Math.random() * 30)
-                    if (rando <= 10) playerClass = 1
-                    else if (rando <= 20) playerClass = 5
-                    else playerClass = 7
-                    break;
-                case 1: rando = (Math.random() * 30)
-                    if (rando <= 10) playerClass = 6
-                    else if (rando <= 20) playerClass = 5
-                    else playerClass = 8
-                    break;
-                case 2: rando = (Math.random() * 40)
-                    if (rando <= 10) playerClass = 3
-                    else if (rando <= 20) playerClass = 4
-                    else if (rando <= 30) playerClass = 6
-                    else playerClass = 8
-                    break;
-                case 3: playerClass = 12
-                    break;
-                case 4: rando = (Math.random() * 40)
-                    if (rando <= 10) playerClass = 1
-                    else if (rando <= 20) playerClass = 5
-                    else playerClass = 10
-                    break;
-                case 5: rando = (Math.random() * 30)
-                    if (rando <= 10) playerClass = 2
-                    else if (rando <= 20) playerClass = 7
-                    else if (rando <= 30) playerClass = 10
-                    else playerClass = 11
-                    break;
-                default: alert('whoops an error happened')
-            }
+        switch(mode) {
+            case 0:
+                    if (playerClass === 0 || playerClass === "0" ) {
+                        switch (val) {
+                            case 0: rando = (Math.random() * 30)
+                                if (rando <= 10) playerClass = 1
+                                else if (rando <= 20) playerClass = 5
+                                else playerClass = 7
+                                break;
+                            case 1: rando = (Math.random() * 30)
+                                if (rando <= 10) playerClass = 6
+                                else if (rando <= 20) playerClass = 5
+                                else playerClass = 8
+                                break;
+                            case 2: rando = (Math.random() * 40)
+                                if (rando <= 10) playerClass = 3
+                                else if (rando <= 20) playerClass = 4
+                                else if (rando <= 30) playerClass = 6
+                                else playerClass = 8
+                                break;
+                            case 3: playerClass = 12
+                                break;
+                            case 4: rando = (Math.random() * 40)
+                                if (rando <= 10) playerClass = 1
+                                else if (rando <= 20) playerClass = 5
+                                else playerClass = 10
+                                break;
+                            case 5: rando = (Math.random() * 30)
+                                if (rando <= 10) playerClass = 2
+                                else if (rando <= 20) playerClass = 7
+                                else if (rando <= 30) playerClass = 10
+                                else playerClass = 11
+                                break;
+                            default: alert('whoops an error happened')
+                        }
+                    }
+            break;
+            case 1:
+                    if (playerClass === 0 || playerClass === "0" ) {
+                        switch (val) {
+                            case 0: rando = (Math.random() * 30)
+                                if (rando <= 10) playerClass = 1
+                                else if (rando <= 20) playerClass = 5
+                                else playerClass = 7
+                                break;
+                            case 1: rando = (Math.random() * 30)
+                                if (rando <= 10) playerClass = 6
+                                else if (rando <= 20) playerClass = 5
+                                else playerClass = 8
+                                break;
+                            case 2: rando = (Math.random() * 40)
+                                if (rando <= 10) playerClass = 3
+                                else if (rando <= 20) playerClass = 4
+                                else if (rando <= 30) playerClass = 6
+                                else playerClass = 8
+                                break;
+                            case 3: playerClass = 12
+                                break;
+                            case 4: rando = (Math.random() * 40)
+                                if (rando <= 10) playerClass = 1
+                                else if (rando <= 20) playerClass = 5
+                                else playerClass = 10
+                                break;
+                            case 5: rando = (Math.random() * 30)
+                                if (rando <= 10) playerClass = 2
+                                else if (rando <= 20) playerClass = 7
+                                else if (rando <= 30) playerClass = 10
+                                else playerClass = 11
+                                break;
+                            default: alert('whoops an error happened')
+                        }
+                    }
+            break;
+            case 2: 
+            playerClass = Math.ceil(Math.random() * 12)
+            break;
+            default: alert("whoops there was an error selected your class")
         }
+
 
         // if playerRace was unselected, assign Race based off
         // of the highest value stat that the Race adds bonuses to.
-        console.log("playerRace prior adjustment", playerRace)
-        if (playerRace === 0) {
-            switch (val) {
-                case 0: rando = (Math.random() * 40)
-                    if (rando <= 10) { playerRace = { race: 1, subrace: 1 }; con += 2; wis++; size = "medium"; speed = 25 }
-                    else if (rando <= 20) { playerRace = { race: 8, subrace: 0 }; str += 2; con++; size = "medium"; speed = 30 }
-                    else if (rando <= 30) { playerRace = { race: 5, subrace: 0 }; str += 2; cha++; size = "medium"; speed = 30 }
-                    else { playerRace = { race: 4, subrace: 0 }; str++; dex++; wis++; int++; con++; cha++; size = "medium"; speed = 30 }
-                    break;
-                case 1: rando = (Math.random() * 40)
-                    if (rando <= 10) playerRace = 2
-                    else if (rando <= 20) { playerRace = { race: 6, subrace: 1 }; int += 2; dex++; size = "small"; speed = 25 }
-                    else if (rando <= 30) { playerRace = { race: 3, subrace: 1 }; dex += 2; cha++; size = "small"; speed = 25 }
-                    else { playerRace = { race: 4, subrace: 0 }; str++; dex++; wis++; int++; con++; cha++; size = "medium"; speed = 30 }
-                    break;
-                case 2: rando = (Math.random() * 50)
-                    if (rando <= 10) { playerRace = { race: 1, subrace: 2 }; con += 2; str += 2; size = "medium"; speed = 25 }
-                    else if (rando <= 20) { playerRace = { race: 8, subrace: 0 }; str += 2; con++; size = "medium"; speed = 30 }
-                    else if (rando <= 30) { playerRace = { race: 3, subrace: 2 }; dex += 2; con++; size = "small"; speed = 25 }
-                    else if (rando <= 40) { playerRace = { race: 6, subrace: 2 }; int += 2; con++; size = "small"; speed = 25 }
-                    else { playerRace = { race: 4, subrace: 0 }; str++; dex++; wis++; int++; con++; cha++; size = "medium"; speed = 30 }
-                    break;
-                case 3: rando = (Math.random() * 40)
-                    if (rando <= 10) { playerRace = { race: 2, subrace: 1 }; dex += 2; wis++; size = "medium"; speed = 30 }
-                    else if (rando <= 20) { playerRace = { race: 9, subrace: 0 }; cha += 2; int++; size = "medium"; speed = 30 }
-                    else if (rando <= 30) { playerRace = { race: 6, subrace: 1 }; int += 2; dex++; size = "small"; speed = 25 }
-                    else { playerRace = { race: 4, subrace: 0 }; str++; dex++; wis++; int++; con++; cha++; size = "medium"; speed = 30 }
-                    break;
-                case 4: rando = (Math.random() * 30)
-                    if (rando <= 10) { playerRace = { race: 1, subrace: 1 }; con += 2; wis++; size = "medium"; speed = 25 }
-                    else if (rando <= 20) { playerRace = { race: 2, subrace: 2 }; dex += 2; int++; size = "medium"; speed = 30 }
-                    else { playerRace = { race: 4, subrace: 0 }; str++; dex++; wis++; int++; con++; cha++; size = "medium"; speed = 30 }
-                    break;
-                case 5: rando = (Math.random() * 60)
-                    if (rando <= 10) { playerRace = { race: 7, subrace: 0 }; cha += 2; con++; dex++; size = "medium"; speed = 30 }
-                    else if (rando <= 20) { playerRace = { race: 2, subrace: 3 }; dex += 2; cha++; size = "medium"; speed = 30 }
-                    else if (rando <= 30) { playerRace = { race: 3, subrace: 1 }; dex += 2; cha++; size = "small"; speed = 25 }
-                    else if (rando <= 40) { playerRace = { race: 5, subrace: 0 }; str += 2; cha++; size = "medium"; speed = 30 }
-                    else if (rando <= 50) { playerRace = { race: 9, subrace: 0 }; cha += 2; int++; size = "medium"; speed = 30 }
-                    else { playerRace = { race: 4, subrace: 0 }; str++; dex++; wis++; int++; con++; cha++; size = "medium"; speed = 30 }
-                    break;
-                default: alert('whoops an error happened')
+        switch(mode) {
+            case 0:
+                if (playerRace === 0) {
+                    switch (val) {
+                        case 0: rando = (Math.random() * 40)
+                            if (rando <= 10) { playerRace = { race: 1, subrace: 1 }; con += 2; wis++; size = "medium"; speed = 25 }
+                            else if (rando <= 20) { playerRace = { race: 8, subrace: 0 }; str += 2; con++; size = "medium"; speed = 30 }
+                            else if (rando <= 30) { playerRace = { race: 5, subrace: 0 }; str += 2; cha++; size = "medium"; speed = 30 }
+                            else { playerRace = { race: 4, subrace: 0 }; str++; dex++; wis++; int++; con++; cha++; size = "medium"; speed = 30 }
+                            break;
+                        case 1: rando = (Math.random() * 40)
+                            if (rando <= 10) playerRace = 2
+                            else if (rando <= 20) { playerRace = { race: 6, subrace: 1 }; int += 2; dex++; size = "small"; speed = 25 }
+                            else if (rando <= 30) { playerRace = { race: 3, subrace: 1 }; dex += 2; cha++; size = "small"; speed = 25 }
+                            else { playerRace = { race: 4, subrace: 0 }; str++; dex++; wis++; int++; con++; cha++; size = "medium"; speed = 30 }
+                            break;
+                        case 2: rando = (Math.random() * 50)
+                            if (rando <= 10) { playerRace = { race: 1, subrace: 2 }; con += 2; str += 2; size = "medium"; speed = 25 }
+                            else if (rando <= 20) { playerRace = { race: 8, subrace: 0 }; str += 2; con++; size = "medium"; speed = 30 }
+                            else if (rando <= 30) { playerRace = { race: 3, subrace: 2 }; dex += 2; con++; size = "small"; speed = 25 }
+                            else if (rando <= 40) { playerRace = { race: 6, subrace: 2 }; int += 2; con++; size = "small"; speed = 25 }
+                            else { playerRace = { race: 4, subrace: 0 }; str++; dex++; wis++; int++; con++; cha++; size = "medium"; speed = 30 }
+                            break;
+                        case 3: rando = (Math.random() * 40)
+                            if (rando <= 10) { playerRace = { race: 2, subrace: 1 }; dex += 2; wis++; size = "medium"; speed = 30 }
+                            else if (rando <= 20) { playerRace = { race: 9, subrace: 0 }; cha += 2; int++; size = "medium"; speed = 30 }
+                            else if (rando <= 30) { playerRace = { race: 6, subrace: 1 }; int += 2; dex++; size = "small"; speed = 25 }
+                            else { playerRace = { race: 4, subrace: 0 }; str++; dex++; wis++; int++; con++; cha++; size = "medium"; speed = 30 }
+                            break;
+                        case 4: rando = (Math.random() * 30)
+                            if (rando <= 10) { playerRace = { race: 1, subrace: 1 }; con += 2; wis++; size = "medium"; speed = 25 }
+                            else if (rando <= 20) { playerRace = { race: 2, subrace: 2 }; dex += 2; int++; size = "medium"; speed = 30 }
+                            else { playerRace = { race: 4, subrace: 0 }; str++; dex++; wis++; int++; con++; cha++; size = "medium"; speed = 30 }
+                            break;
+                        case 5: rando = (Math.random() * 60)
+                            if (rando <= 10) { playerRace = { race: 7, subrace: 0 }; cha += 2; con++; dex++; size = "medium"; speed = 30 }
+                            else if (rando <= 20) { playerRace = { race: 2, subrace: 3 }; dex += 2; cha++; size = "medium"; speed = 30 }
+                            else if (rando <= 30) { playerRace = { race: 3, subrace: 1 }; dex += 2; cha++; size = "small"; speed = 25 }
+                            else if (rando <= 40) { playerRace = { race: 5, subrace: 0 }; str += 2; cha++; size = "medium"; speed = 30 }
+                            else if (rando <= 50) { playerRace = { race: 9, subrace: 0 }; cha += 2; int++; size = "medium"; speed = 30 }
+                            else { playerRace = { race: 4, subrace: 0 }; str++; dex++; wis++; int++; con++; cha++; size = "medium"; speed = 30 }
+                            break;
+                        default: alert('whoops an error happened')
+                    }
+                }
+            break;
+            case 1: 
+            if (playerRace === 0) {
+                switch (val) {
+                    case 0: rando = (Math.random() * 40)
+                        if (rando <= 10) { playerRace = { race: 1, subrace: 1 }; con += 2; wis++; size = "medium"; speed = 25 }
+                        else if (rando <= 20) { playerRace = { race: 8, subrace: 0 }; str += 2; con++; size = "medium"; speed = 30 }
+                        else if (rando <= 30) { playerRace = { race: 5, subrace: 0 }; str += 2; cha++; size = "medium"; speed = 30 }
+                        else { playerRace = { race: 4, subrace: 0 }; str++; dex++; wis++; int++; con++; cha++; size = "medium"; speed = 30 }
+                        break;
+                    case 1: rando = (Math.random() * 40)
+                        if (rando <= 10) playerRace = 2
+                        else if (rando <= 20) { playerRace = { race: 6, subrace: 1 }; int += 2; dex++; size = "small"; speed = 25 }
+                        else if (rando <= 30) { playerRace = { race: 3, subrace: 1 }; dex += 2; cha++; size = "small"; speed = 25 }
+                        else { playerRace = { race: 4, subrace: 0 }; str++; dex++; wis++; int++; con++; cha++; size = "medium"; speed = 30 }
+                        break;
+                    case 2: rando = (Math.random() * 50)
+                        if (rando <= 10) { playerRace = { race: 1, subrace: 2 }; con += 2; str += 2; size = "medium"; speed = 25 }
+                        else if (rando <= 20) { playerRace = { race: 8, subrace: 0 }; str += 2; con++; size = "medium"; speed = 30 }
+                        else if (rando <= 30) { playerRace = { race: 3, subrace: 2 }; dex += 2; con++; size = "small"; speed = 25 }
+                        else if (rando <= 40) { playerRace = { race: 6, subrace: 2 }; int += 2; con++; size = "small"; speed = 25 }
+                        else { playerRace = { race: 4, subrace: 0 }; str++; dex++; wis++; int++; con++; cha++; size = "medium"; speed = 30 }
+                        break;
+                    case 3: rando = (Math.random() * 40)
+                        if (rando <= 10) { playerRace = { race: 2, subrace: 1 }; dex += 2; wis++; size = "medium"; speed = 30 }
+                        else if (rando <= 20) { playerRace = { race: 9, subrace: 0 }; cha += 2; int++; size = "medium"; speed = 30 }
+                        else if (rando <= 30) { playerRace = { race: 6, subrace: 1 }; int += 2; dex++; size = "small"; speed = 25 }
+                        else { playerRace = { race: 4, subrace: 0 }; str++; dex++; wis++; int++; con++; cha++; size = "medium"; speed = 30 }
+                        break;
+                    case 4: rando = (Math.random() * 30)
+                        if (rando <= 10) { playerRace = { race: 1, subrace: 1 }; con += 2; wis++; size = "medium"; speed = 25 }
+                        else if (rando <= 20) { playerRace = { race: 2, subrace: 2 }; dex += 2; int++; size = "medium"; speed = 30 }
+                        else { playerRace = { race: 4, subrace: 0 }; str++; dex++; wis++; int++; con++; cha++; size = "medium"; speed = 30 }
+                        break;
+                    case 5: rando = (Math.random() * 60)
+                        if (rando <= 10) { playerRace = { race: 7, subrace: 0 }; cha += 2; con++; dex++; size = "medium"; speed = 30 }
+                        else if (rando <= 20) { playerRace = { race: 2, subrace: 3 }; dex += 2; cha++; size = "medium"; speed = 30 }
+                        else if (rando <= 30) { playerRace = { race: 3, subrace: 1 }; dex += 2; cha++; size = "small"; speed = 25 }
+                        else if (rando <= 40) { playerRace = { race: 5, subrace: 0 }; str += 2; cha++; size = "medium"; speed = 30 }
+                        else if (rando <= 50) { playerRace = { race: 9, subrace: 0 }; cha += 2; int++; size = "medium"; speed = 30 }
+                        else { playerRace = { race: 4, subrace: 0 }; str++; dex++; wis++; int++; con++; cha++; size = "medium"; speed = 30 }
+                        break;
+                    default: alert('whoops an error happened')
+                }
             }
+            break;
+            case 2:
+                if(playerRace === 0) {
+                    switch(Math.ceil(Math.random() * 14)) {
+                        case 1: playerRace = {race: 1, subrace: 1}; break
+                        case 2: playerRace = {race: 1, subrace: 2}; break
+                        case 3: playerRace = {race: 2, subrace: 1}; break
+                        case 4: playerRace = {race: 2, subrace: 2}; break
+                        case 5: playerRace = {race: 2, subrace: 3}; break
+                        case 6: playerRace = {race: 3, subrace: 1}; break
+                        case 7: playerRace = {race: 3, subrace: 2}; break
+                        case 8: playerRace = {race: 4, subrace: 0}; break
+                        case 9: playerRace = {race: 5, subrace: 0}; break
+                        case 10: playerRace = {race: 6, subrace: 1}; break
+                        case 11: playerRace = {race: 6, subrace: 2}; break
+                        case 12: playerRace = {race: 7, subrace: 0}; break
+                        case 13: playerRace = {race: 8, subrace: 0}; break
+                        case 14: playerRace = {race: 9, subrace: 0}; break
+                    }
+                }
         }
 
         // Retrieve the two skills the players background allows.
@@ -214,9 +373,6 @@ class random extends Component {
         let equipment = await Axios.get(`/api/equipment/${playerClass}`)
         equipment = equipment.data
 
-
-
-
         //set state to new values that the function ran to be added to our character sheet
         this.setState({
             characterName, playerClass, playerRace, background, alignment,
@@ -230,6 +386,7 @@ class random extends Component {
         this.setState({
             [key]: e
         })
+        console.log(this.state)
     }
 
     preview = () => {
@@ -400,9 +557,9 @@ class random extends Component {
                     <div className="random-right"></div>
                 </div>
                 <div className="button-container">
-                    <button onClick={this.easy} className="random easy">Easy</button>
-                    <button className="random normal">Normal</button>
-                    <button className="random hard">Hard</button>
+                    <button onClick={()=>this.easy(0)} className="random easy">Easy</button>
+                    <button onClick={()=>this.easy(1)} className="random normal">Normal</button>
+                    <button onClick={()=>this.easy(2)} className="random hard">Hard</button>
                     <button className="random mayhem">Mayhem</button>
                 </div>
                 {this.state.displayCharacter === true ? 

@@ -56,8 +56,12 @@ module.exports = {
         const db = req.app.get('db')
         const race = req.body.playerRace.race
         const sub = req.body.playerRace.subrace
+        let subTraits = []
         const raceTraits = await db.Sheets.get_race_traits([race])
-        const subTraits = await db.Sheets.get_subrace_traits([race, sub])
+        if (race !== 4 && race !== 5 && race!== 7 && race !== 8 && race !== 9 ) {
+            console.log('hit', race)
+             subTraits = await db.Sheets.get_subrace_traits([race, sub])
+        }
         const allTraits = raceTraits.concat(subTraits)
         res.status(200).send(allTraits)
     },
@@ -112,9 +116,9 @@ module.exports = {
         }
 
         //retrieve the users other equipment
-
+        console.log("number of choices", equipment.choices_to_make)
         if(equipment.choices_to_make >=1) {
-
+            console.log("1")
           let rando1 =  Math.floor(Math.random() * equipment.choice_1.length)
           let rando2 =  Math.floor(Math.random() * equipment.choice_1[rando1].from.length)
           let item = equipment.choice_1[rando1].from[rando2].item.name
@@ -123,7 +127,7 @@ module.exports = {
             startingEquipment.push(item)
         }
         if(equipment.choices_to_make >=2) {
-
+            console.log("2")
             let rando1 =  Math.floor(Math.random() * equipment.choice_2.length)
             let rando2 =  Math.floor(Math.random() * equipment.choice_2[rando1].from.length)
             let item = equipment.choice_2[rando1].from[rando2].item.name
@@ -132,7 +136,7 @@ module.exports = {
               startingEquipment.push(item)
         }
         if(equipment.choices_to_make >=3) {
-
+            console.log("3")
             let rando1 =  Math.floor(Math.random() * equipment.choice_3.length)
             let rando2 =  Math.floor(Math.random() * equipment.choice_3[rando1].from.length)
             let item = equipment.choice_3[rando1].from[rando2].item.name
@@ -141,8 +145,8 @@ module.exports = {
               startingEquipment.push(item)
 
         }
-        if(equipment.choices_to_make >=4) {
-
+        if(equipment.choices_to_make >=4 && playerClass !== 12) {
+            console.log('4')
             let rando1 =  Math.floor(Math.random() * equipment.choice_4.length)
             let rando2 =  Math.floor(Math.random() * equipment.choice_4[rando1].from.length)
             let item = equipment.choice_4[rando1].from[rando2].item.name
@@ -151,7 +155,7 @@ module.exports = {
               startingEquipment.push(item)
         }
         if(equipment.choices_to_make >=5) {
-
+            console.log('5')
             let rando1 =  Math.floor(Math.random() * equipment.choice_5.length)
             let rando2 =  Math.floor(Math.random() * equipment.choice_5[rando1].from.length)
             let item = equipment.choice_5[rando1].from[rando2].item.name
