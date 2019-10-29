@@ -2,6 +2,8 @@ import React, { Component } from "react"
 import "./Preview.css"
 import { connect } from "react-redux"
 import { setSheet } from "../../ducks/reducer"
+import html2canvas from 'html2canvas';
+import * as jsPDF from 'jspdf'
 
 
 class Preview extends Component {
@@ -9,10 +11,22 @@ class Preview extends Component {
 
     }
 
+    toPng = () => {
+        const input = document.getElementById('preview');
+        html2canvas(input)
+          .then((canvas) => {
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF();
+            pdf.addImage(imgData, 'PNG', 0, 0);
+            pdf.save("download.pdf");
+          })
+        ;
+    }
+
     render() {
-        console.log(this.props)
+        console.log(this.state)
         return (
-            <div className="preview-outer">
+            <div id="preview" className="preview-outer">
                 <div className="background"></div>
                 {this.props.characterName ?
                     <div className="sheet-outer">
@@ -365,7 +379,9 @@ class Preview extends Component {
                                 ))}
                             </div>
                         </div>
-                        <div className="footer"></div>
+                        <div className="footer">
+                                    <button onClick= {()=> this.toPng()}>Print</button>
+                        </div>
                     </div>
                     : null}
             </div>

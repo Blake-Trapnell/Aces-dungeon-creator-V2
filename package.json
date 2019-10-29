@@ -13,6 +13,8 @@
         "file-saver": "^2.0.2",
         "gsap": "^2.1.3",
         "html-pdf": "^2.2.0",
+        "html2canvas": "^1.0.0-rc.5",
+        "jspdf": "^1.5.3",
         "massive": "^6.1.0",
         "node-pre-gyp": "^0.13.0",
         "react": "^16.9.0",
