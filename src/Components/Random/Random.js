@@ -1,8 +1,11 @@
 import React, { Component } from "react"
 import "./Random.css"
+import Header from "../Authentication/Header/Header.js"
 import Axios from "axios"
+import {Link} from "react-router-dom"
 import { setSheet} from "../../ducks/reducer"
 import { connect } from "react-redux"
+
 
 class random extends Component {
     state = {
@@ -484,83 +487,94 @@ class random extends Component {
         console.log(this.state)
         return (
             <div className="random-outer">
-                <div className="random-top">
-                    <div className="random-left">
+                <Header/>
+                <div className="random-main">
+                <div className="random-navigation">
+                    <Link className="random-creator" to = "/home">
+                        <h1>Home</h1>
+                        <h6 className="navigation-subtext">Aces</h6>
+                    </Link>
+                    <div className="adventure-league">
+                        <h1 >A.L.</h1>
+                        <h6 className="navigation-subtext">Adventure <p>League</p></h6>
+                    </div>
+                    <div className="custom-create">
+                        <h1>C.C</h1>
+                        <h6 className="navigation-subtext">Custom <p>Create</p></h6>
+                    </div>
+                </div>
+                <div className="random-main-display">
+                    <div className="random-sheets-display">
                         <input onChange={e => this.handleChange("characterName", e.target.value)} className="random-inputs" type="text" placeholder="Name" value={this.state.characterName} />
-                        <select value={this.state.playerClass} onChange={e => this.handleChange("playerClass", e.target.value)} className="random-inputs" name="Class" id="Class">
-                            <option value={0}>Class</option>
-                            <option value={1}>Barbarian</option>
-                            <option value={2}>Bard</option>
-                            <option value={3}>Cleric</option>
-                            <option value={4}>Druid</option>
-                            <option value={5}>Fighter</option>
-                            <option value={6}>Monk</option>
-                            <option value={7}>Paladin</option>
-                            <option value={8}>Ranger</option>
-                            <option value={9}>Rogue</option>
-                            <option value={10}>Sorcerer</option>
-                            <option value={11}>Warlock</option>
-                            <option value={12}>Wizard</option>
+                        <select value={this.state.playerClass} onChange={e => this.handleChange("playerClass", e.target.value)} className="random-inputs random-class-option" name="Class" id="Class">
+                            <option className="random-class-option" value={0}>Class</option>
+                            <option className="random-class-option" value={1}>Barbarian</option>
+                            <option className="random-class-option" value={2}>Bard</option>
+                            <option className="random-class-option" value={3}>Cleric</option>
+                            <option className="random-class-option" value={4}>Druid</option>
+                            <option className="random-class-option" value={5}>Fighter</option>
+                            <option className="random-class-option" value={6}>Monk</option>
+                            <option className="random-class-option" value={7}>Paladin</option>
+                            <option className="random-class-option" value={8}>Ranger</option>
+                            <option className="random-class-option" value={9}>Rogue</option>
+                            <option className="random-class-option" value={10}>Sorcerer</option>
+                            <option className="random-class-option" value={11}>Warlock</option>
+                            <option className="random-class-option" value={12}>Wizard</option>
                         </select>
-                        <select value = {this.state.playerRace} onChange={e => this.handleChange("playerRace", e.target.value)} className="random-inputs" name="Race" id="Race">
-                            <option value={0}>Race</option>
-                            <option value={{race: 1, subrace: 1}}>Hill Dwarf</option>
-                            <option value={{race: 1, subrace: 2}}>Mountain Dwarf</option>
-                            <option value={{race: 2, subrace: 1}}>High Elf</option>
-                            <option value={{race: 2, subrace: 2}}>Wood Elf</option>
-                            <option value={{race: 2, subrace: 3}}>Drow</option>
-                            <option value={{race: 3, subrace: 1}}>Light-foot Halfing</option>
-                            <option value={{race: 3, subrace: 2}}>Stout Halfing</option>
-                            <option value={{race: 4, subrace: 0}}>Human</option>
-                            <option value={{race: 5, subrace: 0}}>Dragonborn</option>
-                            <option value={{race: 6, subrace: 1}}>Forest Gnome</option>
-                            <option value={{race: 6, subrace: 2}}>Rock Gnome</option>
-                            <option value={{race: 7, subrace: 0}}>Half-Elf</option>
-                            <option value={{race: 8, subrace: 0}}>Half-Orc</option>
-                            <option value={{race: 9, subrace: 0}}>Tiefling</option>
+                        <select value = {this.state.playerRace} onChange={e => this.handleChange("playerRace", e.target.value)} className="random-inputs random-race-option" name="Race" id="Race">
+                            <option className="random-race-option" value={0}>Race</option>
+                            <option className="random-race-option" value={{race: 1, subrace: 1}}>Hill Dwarf</option>
+                            <option className="random-race-option" value={{race: 1, subrace: 2}}>Mountain Dwarf</option>
+                            <option className="random-race-option" value={{race: 2, subrace: 1}}>High Elf</option>
+                            <option className="random-race-option" value={{race: 2, subrace: 2}}>Wood Elf</option>
+                            <option className="random-race-option" value={{race: 2, subrace: 3}}>Drow</option>
+                            <option className="random-race-option" value={{race: 3, subrace: 1}}>Light-foot Halfing</option>
+                            <option className="random-race-option" value={{race: 3, subrace: 2}}>Stout Halfing</option>
+                            <option className="random-race-option" value={{race: 4, subrace: 0}}>Human</option>
+                            <option className="random-race-option" value={{race: 5, subrace: 0}}>Dragonborn</option>
+                            <option className="random-race-option" value={{race: 6, subrace: 1}}>Forest Gnome</option>
+                            <option className="random-race-option" value={{race: 6, subrace: 2}}>Rock Gnome</option>
+                            <option className="random-race-option" value={{race: 7, subrace: 0}}>Half-Elf</option>
+                            <option className="random-race-option" value={{race: 8, subrace: 0}}>Half-Orc</option>
+                            <option className="random-race-option" value={{race: 9, subrace: 0}}>Tiefling</option>
                         </select>
-                    </div>
-                    <div className="random-right">
-                        <input onChange={e => this.handleChange("playerName", e.target.value)} className="random-inputs" type="text" placeholder="Player Name" value={this.state.playerName} />
-                        <select value={this.state.background} onChange={e => this.handleChange("background", e.target.value)} className="random-inputs" name="Background" id="Background">
-                            <option value={0}>Background</option>
-                            <option value={1}>Acoylte</option>
-                            <option value={2}>Charlatan</option>
-                            <option value={3}>Criminal / Spy</option>
-                            <option value={4}>Entertainer</option>
-                            <option value={5}>Folk Hero</option>
-                            <option value={6}>Guild Artisan</option>
-                            <option value={7}>Hermit</option>
-                            <option value={8}>Noble</option>
-                            <option value={9}>Outlander</option>
-                            <option value={10}>Sage</option>
-                            <option value={11}>Sailor</option>
-                            <option value={12}>Soldier</option>
-                            <option value={13}>Urchin</option>
+                   
+                   
+                        <input onChange={e => this.handleChange("playerName", e.target.value)} className="random-inputs " type="text" placeholder="Player Name" value={this.state.playerName} />
+                        <select value={this.state.background} onChange={e => this.handleChange("background", e.target.value)} className="random-inputs random-race-option" name="Background" id="Background">
+                            <option className="random-race-option" value={0}>Background</option>
+                            <option className="random-race-option" value={1}>Acoylte</option>
+                            <option className="random-race-option" value={2}>Charlatan</option>
+                            <option className="random-race-option" value={3}>Criminal / Spy</option>
+                            <option className="random-race-option" value={4}>Entertainer</option>
+                            <option className="random-race-option" value={5}>Folk Hero</option>
+                            <option className="random-race-option" value={6}>Guild Artisan</option>
+                            <option className="random-race-option" value={7}>Hermit</option>
+                            <option className="random-race-option" value={8}>Noble</option>
+                            <option className="random-race-option" value={9}>Outlander</option>
+                            <option className="random-race-option" value={10}>Sage</option>
+                            <option className="random-race-option" value={11}>Sailor</option>
+                            <option className="random-race-option" value={12}>Soldier</option>
+                            <option className="random-race-option" value={13}>Urchin</option>
                         </select>
-                        <select value={this.state.alignment} onChange={e => this.handleChange("alignment", e.target.value)} className="random-inputs" name="Alignment" id="Alignment">
-                            <option value={0}>Alignment</option>
-                            <option value={1}>Lawful Good</option>
-                            <option value={2}>Neutral Good</option>
-                            <option value={3}>Chaotic Good</option>
-                            <option value={4}>Lawful Neutral</option>
-                            <option value={5}>Neutral</option>
-                            <option value={6}>Chaotic Neutral</option>
-                            <option value={7}>Lawful Evil</option>
-                            <option value={8}>Neutral Evil</option>
-                            <option value={9}>Chaotic Evil</option>
+                        <select value={this.state.alignment} onChange={e => this.handleChange("alignment", e.target.value)} className="random-inputs random-race-option" name="Alignment" id="Alignment">
+                            <option className="random-race-option" value={0}>Alignment</option>
+                            <option className="random-race-option" value={1}>Lawful Good</option>
+                            <option className="random-race-option" value={2}>Neutral Good</option>
+                            <option className="random-race-option" value={3}>Chaotic Good</option>
+                            <option className="random-race-option" value={4}>Lawful Neutral</option>
+                            <option className="random-race-option" value={5}>Neutral</option>
+                            <option className="random-race-option" value={6}>Chaotic Neutral</option>
+                            <option className="random-race-option" value={7}>Lawful Evil</option>
+                            <option className="random-race-option" value={8}>Neutral Evil</option>
+                            <option className="random-race-option" value={9}>Chaotic Evil</option>
                         </select>
-                    </div>
-                </div>
-                <div className="random-bottom">
-                    <div className="random-left"></div>
-                    <div className="random-right"></div>
-                </div>
-                <div className="button-container">
-                    <button onClick={()=>this.easy(0)} className="random easy">Easy</button>
-                    <button onClick={()=>this.easy(1)} className="random normal">Normal</button>
-                    <button onClick={()=>this.easy(2)} className="random hard">Hard</button>
-                    <button className="random mayhem">Mayhem</button>
+
+                        <div className="button-container">
+                    <button id="random-easy" onClick={()=>this.easy(0)} className="random easy">Easy</button>
+                    <button id="random-normal" onClick={()=>this.easy(1)} className="random normal">Normal</button>
+                    <button id="random-hard" onClick={()=>this.easy(2)} className="random hard">Hard</button>
+                    <button id="random-mayhem">Mayhem</button>
                 </div>
                 {this.state.displayCharacter === true ? 
                 <div>
@@ -570,6 +584,19 @@ class random extends Component {
                 </div>
                 
                 : null }
+                    </div>
+                    <div className="fun-fact">
+                        <div className="did-you-know">
+                        <h1>Did you know?</h1>
+                        </div>
+                        <div className="random-information">
+                        <h4>Barbarians use Strength as their main stat</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
             </div>
         )
     }
