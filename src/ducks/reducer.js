@@ -2,6 +2,7 @@ const initialstate = {
 
 }
 const SET_SHEET = "SET_SHEET"
+const SET_USER = "SET_USER"
 
 export function setSheet(sheetInfo) {
     return {
@@ -9,10 +10,19 @@ export function setSheet(sheetInfo) {
         payload: sheetInfo
     }
 }
+export function setUser(user) {
+    return {
+        type: SET_USER,
+        payload: user
+    }
+}
 
 export default  (state = initialstate, action) => {
     const{type, payload} = action
     switch (type) {
+        case SET_USER:
+            const {username, user_id} = payload
+            return{...state, username, user_id}
         case SET_SHEET:
             const {playerClass, playerRace, characterName, playerName, alignment, background,
             str, dex, wis, int, con, cha, acro, anim, arca, athl, dece, hist, insg, intm, medi,

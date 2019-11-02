@@ -165,5 +165,11 @@ module.exports = {
         }
             res.status(200).send(startingEquipment)
 
+    },
+    addSheet: async (req,res) => {
+        const db = req.app.get('db')
+        let sheetInfo = req.body
+        console.log(sheetInfo)
+        res.status(200).send(sheetInfo)
     }
 }

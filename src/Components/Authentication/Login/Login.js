@@ -2,6 +2,8 @@ import React, { Component } from "react"
 import axios from "axios"
 import Swal from "sweetalert2"
 import {withRouter} from "react-router-dom"
+import  {setUser} from "../../../ducks/reducer"
+import {connect} from "react-redux"
 import './Login.css'
 
 class Login extends Component {
@@ -38,6 +40,7 @@ class Login extends Component {
                 type: "success",
                 title: `${username} signed in`
             })
+            this.props.setUser(user.user)
           return  this.props.history.push('/home')
         }
         else if (user.message === "Username not found"){
@@ -88,4 +91,4 @@ class Login extends Component {
     }
 }
 
-export default withRouter(Login)
+export default withRouter(connect(null, {setUser})(Login));

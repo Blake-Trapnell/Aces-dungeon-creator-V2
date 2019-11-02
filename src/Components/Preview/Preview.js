@@ -4,11 +4,17 @@ import { connect } from "react-redux"
 import { setSheet } from "../../ducks/reducer"
 import { saveAs } from "file-saver"
 import htmlToImage from 'html-to-image';
+import Axios from "axios"
+import swal from "sweetalert2"
 
 
 class Preview extends Component {
     state = {
         displayButtons: true
+    }
+
+    saveSheet = async () => {
+       let res = await Axios.post("/api/addsheet", this.props)
     }
 
     toPng = (filled) => {
@@ -386,6 +392,7 @@ class Preview extends Component {
 
                         <div className="footer">
                             <button onClick={() => this.toPng(0)}>Download</button>
+                            <button onClick={()=>this.saveSheet()}>Save</button>
                         </div>
 
                     </div>

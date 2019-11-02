@@ -29,6 +29,7 @@ app.get('/api/backgroundskills/:background', sCtrl.backgroundSkills)
 app.get('/api/classskills/:playerClass/:playerRace', sCtrl.classSkills)
 app.get('/api/equipment/:playerClass', sCtrl.classEquipment)
 app.post('/api/racialtraits', sCtrl.racialTraits)
+app.post('/api/addsheet', sCtrl.addSheet)
 
 
 massive(CONNECTION_STRING).then(db => {
