@@ -2,32 +2,36 @@ import React, { Component } from "react"
 import "./Preview.css"
 import { connect } from "react-redux"
 import { setSheet } from "../../ducks/reducer"
-import html2canvas from 'html2canvas';
-import * as jsPDF from 'jspdf'
+import { saveAs } from "file-saver"
+import htmlToImage from 'html-to-image';
 
 
 class Preview extends Component {
     state = {
-
+        displayButtons: true
     }
 
-    toPng = () => {
-        const input = document.getElementById('preview');
-        html2canvas(input)
-          .then((canvas) => {
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF();
-            pdf.addImage(imgData, 'PNG', 0, 0);
-            pdf.save("download.pdf");
-          })
-        ;
+    toPng = (filled) => {
+        if (filled === 0) {
+            htmlToImage.toPng(document.getElementById('preview'))
+                .then(function (dataUrl) {
+                    saveAs(dataUrl, 'my-node.png');
+                });
+        }
+        else if (filled === 1) {
+            htmlToImage.toPng(document.getElementById('background'))
+                .then(function (dataUrl) {
+                    saveAs(dataUrl, 'my-node.png');
+                });
+        }
+        else return
     }
 
     render() {
         console.log(this.state)
         return (
             <div id="preview" className="preview-outer">
-                <div className="background"></div>
+                <div id="background" className="background"></div>
                 {this.props.characterName ?
                     <div className="sheet-outer">
                         <div className="sheet-header">
@@ -36,18 +40,18 @@ class Preview extends Component {
                             </div>
                             <div className="sheet-raceclass">
                                 <div className="sheet-raceclass1">
-                                    <div style={{justifyContent: "flex-start", marginLeft: "90px"}} className="sheet-raceclass-top">
+                                    <div style={{ justifyContent: "flex-start", marginLeft: "90px" }} className="sheet-raceclass-top">
                                         <h1>{this.props.playerClass}</h1>
                                     </div>
-                                    <div style={{justifyContent: "flex-start", marginLeft: "90px"}} className="sheet-raceclass-bottom">
+                                    <div style={{ justifyContent: "flex-start", marginLeft: "90px" }} className="sheet-raceclass-bottom">
                                         <h1>{this.props.playerRace}</h1>
                                     </div>
                                 </div>
                                 <div className="sheet-raceclass1">
-                                    <div style={{marginLeft: "20px"}} className="sheet-raceclass-top">
+                                    <div style={{ marginLeft: "20px" }} className="sheet-raceclass-top">
                                         <h1>{this.props.alignment}</h1>
                                     </div>
-                                    <div style={{marginLeft: "20px"}} className="sheet-raceclass-bottom">
+                                    <div style={{ marginLeft: "20px" }} className="sheet-raceclass-bottom">
                                         <h1>{this.props.background}</h1>
                                     </div>
                                 </div>
@@ -309,23 +313,23 @@ class Preview extends Component {
                                 </div>
                                 <div className="sheet-passive-perc">
                                     {this.props.perc === true ?
-                                    <h1>{Math.floor((this.props.wis - 10) / 2) + 10 + this.props.profeciency}</h1> :
-                                    <h1>{Math.floor((this.props.wis - 10) / 2) + 10}</h1> }
+                                        <h1>{Math.floor((this.props.wis - 10) / 2) + 10 + this.props.profeciency}</h1> :
+                                        <h1>{Math.floor((this.props.wis - 10) / 2) + 10}</h1>}
                                 </div>
                                 <div className="sheet-otherprofs">
-                                        <h1>Weapon Profeciencies</h1>
-                                        {this.props.weaponProf.map((el,i)=> (
-                                            <div key = {`weapon ${i}`}>
-                                                <h6 style={{fontSize: '.8rem'}}>•{el}</h6>
-                                            </div>
-                                        ))}
-                                        <h1>Armor Profeciencies</h1>
-                                        {this.props.armorProf.map((el,i)=> {
-                                            return (<div key = {`armor ${i}`}>
-                                                <h6 style={{fontSize: '.8rem'}}>•{el}</h6>
-                                            </div>)
-                                        })}
-                                        
+                                    <h1>Weapon Profeciencies</h1>
+                                    {this.props.weaponProf.map((el, i) => (
+                                        <div key={`weapon ${i}`}>
+                                            <h6 style={{ fontSize: '.8rem' }}>•{el}</h6>
+                                        </div>
+                                    ))}
+                                    <h1>Armor Profeciencies</h1>
+                                    {this.props.armorProf.map((el, i) => {
+                                        return (<div key={`armor ${i}`}>
+                                            <h6 style={{ fontSize: '.8rem' }}>•{el}</h6>
+                                        </div>)
+                                    })}
+
 
                                 </div>
                             </div>
@@ -333,10 +337,10 @@ class Preview extends Component {
                                 <div className="sheet-middle-top">
                                     <div className="sheet-middle-ais">
                                         <div className="sheet-middle-ac">
-                                            <h1>{Math.floor((this.props.dex -10) / 2) + 10}</h1>
+                                            <h1>{Math.floor((this.props.dex - 10) / 2) + 10}</h1>
                                         </div>
                                         <div className="sheet-middle-initative">
-                                        <h1>{Math.floor((this.props.dex -10) / 2) + 10}</h1>
+                                            <h1>{Math.floor((this.props.dex - 10) / 2) + 10}</h1>
                                         </div>
                                         <div className="sheet-middle-speed">
                                             <h1>{this.props.speed}</h1>
@@ -347,7 +351,7 @@ class Preview extends Component {
                                             <h1>{Math.floor((this.props.con - 10) / 2) + this.props.hitDie}</h1>
                                         </div>
                                         <div className="sheet-current">
-                                        <h1>{Math.floor((this.props.con - 10) / 2) + this.props.hitDie}</h1>
+                                            <h1>{Math.floor((this.props.con - 10) / 2) + this.props.hitDie}</h1>
                                         </div>
                                     </div>
                                     <div className="sheet-middle-hds">
@@ -361,9 +365,9 @@ class Preview extends Component {
                                 </div>
                                 <div className="sheet-middle-bot">
                                     <div className="sheet-middle-equipment">
-                                        {this.props.equipment.map((el,i)=>{
-                                            return(
-                                                <div key = {`equipment ${i}`}>
+                                        {this.props.equipment.map((el, i) => {
+                                            return (
+                                                <div key={`equipment ${i}`}>
                                                     <h1>{el.name}, {el.quantity}</h1>
                                                 </div>
                                             )
@@ -372,16 +376,18 @@ class Preview extends Component {
                                 </div>
                             </div>
                             <div className="sheet-right-column">
-                                {this.props.racialTraits.map((el,i)=> (
-                                    <div key = {`Race Traits ${i}`}>
-                                        <h1> <span style={{fontSize: ".8rem", fontWeight: "bold"}}>{el.trait}:</span> <span style={{fontSize: ".8rem"}}> {el.trait_text} </span> </h1>
+                                {this.props.racialTraits.map((el, i) => (
+                                    <div key={`Race Traits ${i}`}>
+                                        <h1> <span style={{ fontSize: ".7rem", fontWeight: "bold" }}>{el.trait}:</span> <span style={{ fontSize: ".6rem" }}> {el.trait_text} </span> </h1>
                                     </div>
                                 ))}
                             </div>
                         </div>
+
                         <div className="footer">
-                                    <button onClick= {()=> this.toPng()}>Print</button>
+                            <button onClick={() => this.toPng(0)}>Download</button>
                         </div>
+
                     </div>
                     : null}
             </div>
