@@ -1,15 +1,39 @@
-import React from "react"
+import React, {Component} from "react"
 import "./Home.css"
 import Header from "../Authentication/Header/Header.js"
 import {Link} from "react-router-dom"
+import Axios from "axios"
+import {withRouter} from "react-router-dom"
+import { setUser } from "../../ducks/reducer"
+import {connect} from "react-redux"
 
-export default function Home() {
+ class Home extends Component {
+state = {
+    username: ""
+}
 
+
+componentWillMount(){
+    Axios.get('/auth/user').then((res)=>{
+        let user = res.data
+            if(user.username === undefined) {
+                return  this.props.history.push("/")
+              }
+        this.props.setUser(user)
+        this.setState({
+            username: user.username
+        })
+    })
+}
+
+    render() {
     return(
         <div className="home-outer">
             <Header/>
             <div className="help-notifications">   
-                <div className="home-notifications"></div>
+                <div className="home-notifications">
+                    {this.state.username ? <h1>Welcome: {this.state.username}</h1> : null}
+                </div>
                 <div className="home-help">
                     {/* <button className="home-logout-button">out</button>
                     <button className="home-help-button">Help</button> */}
@@ -46,3 +70,5 @@ export default function Home() {
         </div>
     )
 }
+}
+export default withRouter(connect(null, {setUser})(Home));

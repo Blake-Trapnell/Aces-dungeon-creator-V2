@@ -39,5 +39,8 @@ module.exports = {
         const {promocode} = req.body
         const valid = await db.auth.check_promo([promocode])
         res.status(200).send(valid)
+    },
+    setUser: (req,res) => {
+        res.status(200).send(req.session.user)
     }
 }

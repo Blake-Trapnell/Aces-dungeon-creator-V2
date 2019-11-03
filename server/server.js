@@ -22,6 +22,7 @@ app.use(express.json())
 app.post('/auth/users/login', aCtrl.login)
 app.post('/auth/users/register', aCtrl.register)
 app.post('/auth/promo', aCtrl.applyPromo)
+app.get('/auth/user', aCtrl.setUser)
 
 //sheets
 app.get('/api/names', sCtrl.randomName)

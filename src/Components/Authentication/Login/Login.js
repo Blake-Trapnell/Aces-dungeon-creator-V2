@@ -33,7 +33,6 @@ class Login extends Component {
           })
         const {username, password} = this.state
         let user = await axios.post('/auth/users/login', {username, password})
-        console.log(user)
         user = user.data
         if(user.message === "Logged in") {
             Toast.fire({

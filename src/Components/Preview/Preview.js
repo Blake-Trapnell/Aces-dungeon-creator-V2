@@ -34,7 +34,6 @@ class Preview extends Component {
     }
 
     render() {
-        console.log(this.state)
         return (
             <div id="preview" className="preview-outer">
                 <div id="background" className="background"></div>

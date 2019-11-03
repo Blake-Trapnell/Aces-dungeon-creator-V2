@@ -2,7 +2,6 @@ const Axios = require('axios')
 
 module.exports = {
     randomName: async (req, res) => {
-        console.log("name")
         let rando = Math.ceil((Math.random() * 30))
         const db = req.app.get('db')
         let first = await db.Sheets.get_random_first([rando])
@@ -14,7 +13,6 @@ module.exports = {
         res.status(200).send(name)
     },
     backgroundSkills: async (req, res) => {
-        console.log('background skills')
         const db = req.app.get('db')
         let backgroundNumber = +req.params.background
         let background = ""
@@ -52,21 +50,18 @@ module.exports = {
         res.status(200).send(skills)
     },
     racialTraits: async (req, res) => {
-        console.log('racial traits')
         const db = req.app.get('db')
         const race = req.body.playerRace.race
         const sub = req.body.playerRace.subrace
         let subTraits = []
         const raceTraits = await db.Sheets.get_race_traits([race])
         if (race !== 4 && race !== 5 && race!== 7 && race !== 8 && race !== 9 ) {
-            console.log('hit', race)
              subTraits = await db.Sheets.get_subrace_traits([race, sub])
         }
         const allTraits = raceTraits.concat(subTraits)
         res.status(200).send(allTraits)
     },
     classSkills: async (req, res) => {
-        console.log('class skills')
         const db = req.app.get('db')
         const val = +req.params.playerClass
         let points = null
@@ -99,9 +94,7 @@ module.exports = {
         res.status(200).send({ skills, points, hitDie, savingThrows, armorProf, weaponProf })
     },
     classEquipment: async (req,res) => {
-        console.log('class equipment')
         let playerClass = +req.params.playerClass
-        console.log(playerClass)
         let equipment = await Axios.get(`http://www.dnd5eapi.co/api/startingequipment/${playerClass}`)
         equipment = equipment.data
 
@@ -116,9 +109,7 @@ module.exports = {
         }
 
         //retrieve the users other equipment
-        console.log("number of choices", equipment.choices_to_make)
         if(equipment.choices_to_make >=1) {
-            console.log("1")
           let rando1 =  Math.floor(Math.random() * equipment.choice_1.length)
           let rando2 =  Math.floor(Math.random() * equipment.choice_1[rando1].from.length)
           let item = equipment.choice_1[rando1].from[rando2].item.name
@@ -127,7 +118,6 @@ module.exports = {
             startingEquipment.push(item)
         }
         if(equipment.choices_to_make >=2) {
-            console.log("2")
             let rando1 =  Math.floor(Math.random() * equipment.choice_2.length)
             let rando2 =  Math.floor(Math.random() * equipment.choice_2[rando1].from.length)
             let item = equipment.choice_2[rando1].from[rando2].item.name
@@ -136,7 +126,6 @@ module.exports = {
               startingEquipment.push(item)
         }
         if(equipment.choices_to_make >=3) {
-            console.log("3")
             let rando1 =  Math.floor(Math.random() * equipment.choice_3.length)
             let rando2 =  Math.floor(Math.random() * equipment.choice_3[rando1].from.length)
             let item = equipment.choice_3[rando1].from[rando2].item.name
@@ -146,7 +135,6 @@ module.exports = {
 
         }
         if(equipment.choices_to_make >=4 && playerClass !== 12) {
-            console.log('4')
             let rando1 =  Math.floor(Math.random() * equipment.choice_4.length)
             let rando2 =  Math.floor(Math.random() * equipment.choice_4[rando1].from.length)
             let item = equipment.choice_4[rando1].from[rando2].item.name
@@ -155,7 +143,6 @@ module.exports = {
               startingEquipment.push(item)
         }
         if(equipment.choices_to_make >=5) {
-            console.log('5')
             let rando1 =  Math.floor(Math.random() * equipment.choice_5.length)
             let rando2 =  Math.floor(Math.random() * equipment.choice_5[rando1].from.length)
             let item = equipment.choice_5[rando1].from[rando2].item.name
@@ -169,7 +156,6 @@ module.exports = {
     addSheet: async (req,res) => {
         const db = req.app.get('db')
         let sheetInfo = req.body
-        console.log(sheetInfo)
         res.status(200).send(sheetInfo)
     }
 }

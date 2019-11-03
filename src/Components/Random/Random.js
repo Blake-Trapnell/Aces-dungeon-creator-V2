@@ -3,7 +3,7 @@ import "./Random.css"
 import Header from "../Authentication/Header/Header.js"
 import Axios from "axios"
 import {Link} from "react-router-dom"
-import { setSheet} from "../../ducks/reducer"
+import { setSheet, setUser} from "../../ducks/reducer"
 import { connect } from "react-redux"
 
 
@@ -47,6 +47,19 @@ class random extends Component {
         armorProf: [],
         weaponProf: [],
         profeciency: 2
+    }
+
+    componentWillMount(){
+        Axios.get('/auth/user').then((res)=>{
+            let user = res.data
+                if(user.username === undefined) {
+                    return  this.props.history.push("/")
+                  }
+            this.props.setUser(user)
+            this.setState({
+                username: user.username
+            })
+        })
     }
     
     easy = async (mode) => {
@@ -348,7 +361,6 @@ class random extends Component {
         backgroundSkills = backgroundSkills.data
 
         //Retrieve a list of the users Traits for the characters race.
-        console.log("race after adjustment", playerRace)
         let racialTraits = await Axios.post(`/api/racialtraits`, { playerRace })
         racialTraits = racialTraits.data
 
@@ -389,7 +401,6 @@ class random extends Component {
         this.setState({
             [key]: e
         })
-        console.log(this.state)
     }
 
     preview = () => {
@@ -410,7 +421,6 @@ class random extends Component {
                     case 12: playerClass = "Wizard"; break;
                     default : playerClass = "error"
                 }
-                console.log("race", playerRace, "subrace", playerRace)
                 switch(playerRace.race) {
                      case 1:
                          switch(playerRace.subrace) {
@@ -434,7 +444,7 @@ class random extends Component {
                              default: playerRace = "error";
                          }
                          break;
-                     case 4: playerRace = "Human"; console.log('hit'); break; 
+                     case 4: playerRace = "Human"; break; 
                      case 5: playerRace = "Dragonborn"; break;
                      case 6:
                          switch(playerRace.subrace) {
@@ -484,7 +494,6 @@ class random extends Component {
     }
 
     render() {
-        console.log(this.state)
         return (
             <div className="random-outer">
                 <Header/>
@@ -603,4 +612,4 @@ class random extends Component {
 
 }
 
-export default connect(null, {setSheet})(random);
+export default connect(null, {setSheet, setUser})(random);
