@@ -57,6 +57,18 @@ sub_race INT,
 trait VARCHAR(50), 
 trait_text text);
 
+CREATE TABLE character_sheets (
+sheet_id SERIAL PRIMARY KEY,
+user_id INT, playerClass TEXT, playerRace TEXT, characterName TEXT,
+playerName TEXT, alignment TEXT, background TEXT, str INT, dex INT,
+wis INT, con INT, cha INT, acro BOOLEAN, anim BOOLEAN, arca BOOLEAN,
+athl BOOLEAN, dece BOOLEAN, hist BOOLEAN, insg BOOLEAN, intm BOOLEAN,
+medi BOOLEAN, natu BOOLEAN, perc BOOLEAN, perf BOOLEAN, reli BOOLEAN,
+slei BOOLEAN, stea BOOLEAN, surv BOOLEAN, speed INT, size TEXT, 
+hitDie BOOLEAN, savingThrows INT[], armorProf TEXT[], weaponProf TEXT[],
+racialTraits TEXT[], equipment TEXT[]
+);
+
 INSERT INTO background_skills (skill, acoylte, charlatan, criminal_spy, entertainer, folk_hero, guild_artisan, hermit, noble, outlander, sage, sailor, Soldier, Urchin)
 VALUES ('cro', FALSE, FALSE, FALSE, TRUE , FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE),
 ('anim', FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE),
