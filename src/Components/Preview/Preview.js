@@ -1,16 +1,28 @@
 import React, { Component } from "react"
 import "./Preview.css"
 import { connect } from "react-redux"
-import { setSheet } from "../../ducks/reducer"
+import { setSheet, setUser } from "../../ducks/reducer"
 import { saveAs } from "file-saver"
 import htmlToImage from 'html-to-image';
 import Axios from "axios"
-import swal from "sweetalert2"
 
 
 class Preview extends Component {
     state = {
         displayButtons: true
+    }
+
+    componentWillMount(){
+        Axios.get('/auth/user').then((res)=>{
+            let user = res.data
+                if(user.username === undefined) {
+                    return  this.props.history.push("/")
+                  }
+            this.props.setUser(user)
+            this.setState({
+                username: user.username
+            })
+        })
     }
 
     saveSheet = async () => {
@@ -34,6 +46,7 @@ class Preview extends Component {
     }
 
     render() {
+        console.log(this.state)
         return (
             <div id="preview" className="preview-outer">
                 <div id="background" className="background"></div>
@@ -407,12 +420,12 @@ function mapStateToProps(state) {
     const { playerClass, playerRace, characterName, playerName, alignment, background,
         str, dex, wis, int, con, cha, acro, anim, arca, athl, dece, hist, insg, intm, medi,
         natu, perc, perf, pers, reli, slei, stea, surv, armor, speed, size, hitDie, savingThrows,
-        armorProf, weaponProf, profeciency, racialTraits, equipment } = state
+        armorProf, weaponProf, profeciency, racialTraits, equipment, username, user_id} = state
     return {
         playerClass, playerRace, characterName, playerName, alignment, background,
         str, dex, wis, int, con, cha, acro, anim, arca, athl, dece, hist, insg, intm, medi,
         natu, perc, perf, pers, reli, slei, stea, surv, armor, speed, size, hitDie, savingThrows,
-        armorProf, weaponProf, profeciency, racialTraits, equipment
+        armorProf, weaponProf, profeciency, racialTraits, equipment, username, user_id
     }
 }
-export default connect(mapStateToProps, { setSheet })(Preview);
+export default connect(mapStateToProps, { setSheet, setUser })(Preview);

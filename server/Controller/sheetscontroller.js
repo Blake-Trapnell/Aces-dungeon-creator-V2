@@ -155,7 +155,14 @@ module.exports = {
     },
     addSheet: async (req,res) => {
         const db = req.app.get('db')
-        let sheetInfo = req.body
+        const {playerClass, playerRace, characterName, playerName, alignment,
+        background, str, dex, wis, int, con, cha, acro, anim, arca,
+    athl, dece, hist, insg, intm, medi, natu, perc, perf, reli, slei, stea, surv,
+    speed, size, hitDie, savingThrows, armorProf, weaponProf, racialTraits, equipment, username, user_id} = req.body
+    sheetInfo = await db.Sheets.save_sheet({playerClass, playerRace, characterName, playerName, alignment,
+                background, str, dex, wis, int, con, cha, acro, anim, arca,
+            athl, dece, hist, insg, intm, medi, natu, perc, perf, reli, slei, stea, surv,
+        speed, size, hitDie, savingThrows, armorProf, weaponProf, racialTraits, equipment, username, user_id})
         res.status(200).send(sheetInfo)
     }
 }
