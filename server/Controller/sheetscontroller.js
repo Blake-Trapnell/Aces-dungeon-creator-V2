@@ -164,5 +164,11 @@ module.exports = {
             athl, dece, hist, insg, intm, medi, natu, perc, perf, reli, slei, stea, surv,
         speed, size, hitDie, savingThrows, armorProf, weaponProf, racialTraits, equipment, username, user_id})
         res.status(200).send(sheetInfo)
+    },
+    getUserSheets: async (req,res) => {
+        const db = req.app.get('db')
+        const user_id = req.session.user.user_id
+        let userSheets = await db.Sheets.get_user_sheets([user_id])
+        res.status(200).send(userSheets)
     }
 }

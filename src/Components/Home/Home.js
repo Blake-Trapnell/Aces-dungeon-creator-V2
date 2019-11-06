@@ -24,9 +24,16 @@ componentWillMount(){
             username: user.username
         })
     })
+    Axios.get(`/api/usersheets/`).then((res)=> {
+        const userSheets = res.data
+        this.setState({
+            userSheets
+        })
+    })
 }
 
     render() {
+        console.log(this.state)
     return(
         <div className="home-outer">
             <Header/>
@@ -56,7 +63,18 @@ componentWillMount(){
                     </div>
                 </div>
                 <div className="home-main-display">
-                    <div className="home-sheets-display"></div>
+                    <div className="home-sheets-display">
+                        {this.state.userSheets ? 
+                            this.state.userSheets.map((el,i)=> (
+                                <div key = {i} className="user-sheets-outer">
+                                        <h1>{el.charactername}</h1>
+                                        <h1>{el.playerclass}</h1>
+                                        <h1>{el.background}</h1>
+                                        <h1>{el.alignment}</h1>
+                                </div>
+                            ))
+                             : null}
+                    </div>
                     <div className="fun-fact">
                         <div className="did-you-know">
                         <h1>Did you know?</h1>
