@@ -66,11 +66,23 @@ componentWillMount(){
                     <div className="home-sheets-display">
                         {this.state.userSheets ? 
                             this.state.userSheets.map((el,i)=> (
-                                <div key = {i} className="user-sheets-outer">
+                                <div style={{background: el.color}} key = {i} className="user-sheets-outer">
+                                    <div className="home-user-sheets-individual">
+                                    <div className="home-name-class">
                                         <h1>{el.charactername}</h1>
                                         <h1>{el.playerclass}</h1>
+                                    </div>
+                                    <div className="home-background-alignment">
                                         <h1>{el.background}</h1>
                                         <h1>{el.alignment}</h1>
+                                    </div>
+
+                                    </div>
+                                    <div className="home-sheet-button-container">
+                                        <button class="home-user-buttons">View</button>
+                                        <button class="home-user-buttons">Edit</button>
+                                        <button class="home-user-buttons">Delete</button>
+                                    </div>
                                 </div>
                             ))
                              : null}

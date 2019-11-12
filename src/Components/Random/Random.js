@@ -68,6 +68,7 @@ class random extends Component {
             con, cha, speed, size, hitDie, savingThrows, armorProf, weaponProf, displayCharacter} = this.state
         //Assign variables for later use in function
         let rando = 0
+        let color = "#9ffc9f"
         playerClass = +playerClass
 
 
@@ -392,7 +393,7 @@ class random extends Component {
         this.setState({
             characterName, playerClass, playerRace, background, alignment,
             str, wis, int, dex, cha, con, [backgroundSkills[0].skill]: true, [backgroundSkills[1].skill]: true, racialTraits, speed, size, 
-            hitDie, weaponProf, armorProf, savingThrows, displayCharacter, equipment
+            hitDie, weaponProf, armorProf, savingThrows, displayCharacter, equipment, color
         })
     }
 

@@ -420,12 +420,12 @@ function mapStateToProps(state) {
     const { playerClass, playerRace, characterName, playerName, alignment, background,
         str, dex, wis, int, con, cha, acro, anim, arca, athl, dece, hist, insg, intm, medi,
         natu, perc, perf, pers, reli, slei, stea, surv, armor, speed, size, hitDie, savingThrows,
-        armorProf, weaponProf, profeciency, racialTraits, equipment, username, user_id} = state
+        armorProf, weaponProf, profeciency, racialTraits, equipment, username, user_id, color} = state
     return {
         playerClass, playerRace, characterName, playerName, alignment, background,
         str, dex, wis, int, con, cha, acro, anim, arca, athl, dece, hist, insg, intm, medi,
         natu, perc, perf, pers, reli, slei, stea, surv, armor, speed, size, hitDie, savingThrows,
-        armorProf, weaponProf, profeciency, racialTraits, equipment, username, user_id
+        armorProf, weaponProf, profeciency, racialTraits, equipment, username, user_id, color
     }
 }
 export default connect(mapStateToProps, { setSheet, setUser })(Preview);

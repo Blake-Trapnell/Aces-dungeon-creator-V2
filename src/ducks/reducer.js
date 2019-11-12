@@ -27,11 +27,11 @@ export default  (state = initialstate, action) => {
             const {playerClass, playerRace, characterName, playerName, alignment, background,
             str, dex, wis, int, con, cha, acro, anim, arca, athl, dece, hist, insg, intm, medi,
         natu, perc, perf, pers, reli, slei, stea, surv, armor, speed, size, hitDie, savingThrows,
-    armorProf, weaponProf, profeciency, racialTraits, equipment } = payload
+    armorProf, weaponProf, profeciency, racialTraits, equipment, color } = payload
             return{...state, playerClass, playerRace, characterName, playerName, alignment, background,
                 str, dex, wis, int, con, cha, acro, anim, arca, athl, dece, hist, insg, intm, medi,
             natu, perc, perf, pers, reli, slei, stea, surv, armor, speed, size, hitDie, savingThrows,
-        armorProf, weaponProf, profeciency, racialTraits, equipment }
+        armorProf, weaponProf, profeciency, racialTraits, equipment, color }
         default: return state
     }
 }
