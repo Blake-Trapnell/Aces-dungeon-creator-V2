@@ -4,7 +4,7 @@ import Header from "../Authentication/Header/Header.js"
 import {Link} from "react-router-dom"
 import Axios from "axios"
 import {withRouter} from "react-router-dom"
-import { setUser } from "../../ducks/reducer"
+import { setUser, setSheet } from "../../ducks/reducer"
 import {connect} from "react-redux"
 
  class Home extends Component {
@@ -30,6 +30,16 @@ componentWillMount(){
             userSheets
         })
     })
+}
+view = (el) => {
+    let {charactername, playerclass, playerrace, playername, 
+        racialtraits, armorprof, weaponprof, savingthrows, inte} = el
+        el.characterName = charactername; el.playerClass = playerclass; el.playerRace = playerrace
+        el.playerName = playername; el.racialTraits = racialtraits; el.armorProf = armorprof
+        el.weaponProf = weaponprof; el.savingThrows = savingthrows
+        el.int = inte; 
+    this.props.setSheet(el)
+    this.props.history.push("/preview")
 }
 
     render() {
@@ -67,6 +77,7 @@ componentWillMount(){
                         {this.state.userSheets ? 
                             this.state.userSheets.map((el,i)=> (
                                 <div style={{background: el.color}} key = {i} className="user-sheets-outer">
+                                    {console.log(el)}
                                     <div className="home-user-sheets-individual">
                                     <div className="home-name-class">
                                         <h1>{el.charactername}</h1>
@@ -79,9 +90,9 @@ componentWillMount(){
 
                                     </div>
                                     <div className="home-sheet-button-container">
-                                        <button class="home-user-buttons">View</button>
-                                        <button class="home-user-buttons">Edit</button>
-                                        <button class="home-user-buttons">Delete</button>
+                                        <button onClick={()=>this.view(el)} className="home-user-buttons">View</button>
+                                        <button className="home-user-buttons">Edit</button>
+                                        <button className="home-user-buttons">Delete</button>
                                     </div>
                                 </div>
                             ))
@@ -101,4 +112,4 @@ componentWillMount(){
     )
 }
 }
-export default withRouter(connect(null, {setUser})(Home));
+export default withRouter(connect(null, {setUser, setSheet})(Home));
