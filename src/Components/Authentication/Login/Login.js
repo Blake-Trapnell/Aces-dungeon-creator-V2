@@ -77,11 +77,11 @@ class Login extends Component {
                     <div className="login-character-sheet-display">
                         <div style={{backgroundImage: `url(${this.state.backgroundimg[this.state.backgroundPosition]})`}} className="login-character-sheet-image"></div>
                         <div className="login-character-sheet-selection">
-                            <div style ={this.state.backgroundPosition === 0 ? {border: "2px solid black", height: "10px", width: "10px", backgroundColor: "#AF282A"}: null} onClick={()=> {this.backgroundPosition(0)}} className="image-position position-0"></div>
-                            <div style ={this.state.backgroundPosition === 1 ? {border: "2px solid black", height: "10px", width: "10px", backgroundColor: "#AF282A"}: null} onClick={()=> {this.backgroundPosition(1)}} className="image-position position-1"></div>
-                            <div style ={this.state.backgroundPosition === 3 ? {border: "2px solid black", height: "10px", width: "10px", backgroundColor: "#AF282A"}: null} onClick={()=> {this.backgroundPosition(3)}} className="image-position position-3"></div>
-                            <div style ={this.state.backgroundPosition === 2 ? {border: "2px solid black", height: "10px", width: "10px", backgroundColor: "#AF282A"}: null} onClick={()=> {this.backgroundPosition(2)}} className="image-position position-2"></div>
-                            <div style ={this.state.backgroundPosition === 4 ? {border: "2px solid black", height: "10px", width: "10px", backgroundColor: "#AF282A"}: null} onClick={()=> {this.backgroundPosition(4)}} className="image-position position-4"></div>
+                            <div style ={this.state.backgroundPosition === 0 ? {border: "2px solid black", height: "10px", width: "10px", backgroundColor: "#3DE1FF"}: null} onClick={()=> {this.backgroundPosition(0)}} className="image-position position-0"></div>
+                            <div style ={this.state.backgroundPosition === 1 ? {border: "2px solid black", height: "10px", width: "10px", backgroundColor: "#3DE1FF"}: null} onClick={()=> {this.backgroundPosition(1)}} className="image-position position-1"></div>
+                            <div style ={this.state.backgroundPosition === 3 ? {border: "2px solid black", height: "10px", width: "10px", backgroundColor: "#3DE1FF"}: null} onClick={()=> {this.backgroundPosition(3)}} className="image-position position-3"></div>
+                            <div style ={this.state.backgroundPosition === 2 ? {border: "2px solid black", height: "10px", width: "10px", backgroundColor: "#3DE1FF"}: null} onClick={()=> {this.backgroundPosition(2)}} className="image-position position-2"></div>
+                            <div style ={this.state.backgroundPosition === 4 ? {border: "2px solid black", height: "10px", width: "10px", backgroundColor: "#3DE1FF"}: null} onClick={()=> {this.backgroundPosition(4)}} className="image-position position-4"></div>
                         </div>
                     </div>
                 </div>

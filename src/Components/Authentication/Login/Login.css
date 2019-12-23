@@ -3,14 +3,14 @@
     width: 100vw;
     display: flex;
     flex-direction: column;
-    background-color: #F0EDEE;
+    background-color: #FDFFFC;
 }
 
 .login-upper {
     font-family: 'Metal Mania', cursive;
     height: 40vh;
     width: 100vw;
-    background-color: #F0EDEE;
+    background-color: #FDFFFC;
     display: flex;
     color: #8C88A0;
     text-shadow: 1px 1px #333333;
@@ -59,7 +59,7 @@
 
 .login-character-sheet-image {
     height: 90%;
-    width: 90%;
+    width: 300px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -69,7 +69,7 @@
 
 .login-character-sheet-selection {
     height: 10%;
-    width: 90%;
+    width: 300px;
     border: 2px solid #333333;
     border-top: none;
     border-radius: 0 0 5px 5px;
@@ -82,7 +82,7 @@
     height: 20px;
     width: 20px;
     border-radius: 50%;
-    background-color: #8C88A0
+    background-color: #963484
 }
 
 .login-clickhere {
@@ -93,4 +93,13 @@
 
 .login-clickhere:hover {
     color: #3DE1FF;
+}
+
+@media (max-width: 470px) {
+    .login-character-sheet-image {
+        width: 90%;
+    }
+    .login-character-sheet-selection {
+        width: 90%;
+    }
 }
