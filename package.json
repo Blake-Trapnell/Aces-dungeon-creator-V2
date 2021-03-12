@@ -17,7 +17,7 @@
         "html-pdf": "^2.2.0",
         "html-to-image": "^0.1.1",
         "html2canvas": "^1.0.0-rc.5",
-        "jspdf": "^1.5.3",
+        "jspdf": "^2.3.1",
         "massive": "^6.1.0",
         "node-pre-gyp": "^0.13.0",
         "react": "^16.9.0",
